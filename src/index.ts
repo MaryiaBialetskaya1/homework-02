@@ -5,7 +5,7 @@ const app = express()
 const jsonBodyMiddleware = bodyParser.json()
 app.use(jsonBodyMiddleware)
 
-const port = 3000
+const port = process.env.PORT || 3000
 
 let videos = [
     {id:1, title: '1'},
