@@ -7,20 +7,32 @@ app.use(jsonBodyMiddleware)
 
 const port = process.env.PORT || 3000
 
-let posts: any = []
-let blogs: any = []
+
+type blogsType = {
+    id: string
+    name: string
+    youtubeUrl: string
+}
+type postsType = {
+    id: string
+    title: string
+    shortDescription: string
+    content: string
+    blogId: string
+    blogName: string
+}
+
+let posts: postsType [] = []
+let blogs: blogsType[] = []
 
 app.get('/', (req:Request, res:Response) => {
     res.send('Hello Homework-02 from IT-Incubator!!!!')
 })
-app.delete( '/testing/all-data', (req: Request, res:Response) =>{
-    blogs.length = 0;
-    posts.length = 0;
-    res.send(204)
-})
+
 app.get('/blogs', (req:Request, res: Response) =>{
     res.send(blogs);
 })
+
 app.post('/blogs', (req:Request ,res: Response) =>{
     const error = []
 
@@ -33,6 +45,12 @@ app.post('/blogs', (req:Request ,res: Response) =>{
             "field": "name"
         })
     }
+    if(youtubeUrl.length > 100){
+        error.push({
+            "message": "Incorrect youtubeUrl",
+            "field": "youtubeUrl"
+        })
+    }
 
     if(error.length){
         res.status(400).send({errorsMessages: error})
@@ -40,12 +58,31 @@ app.post('/blogs', (req:Request ,res: Response) =>{
     }
 
     const newBlog = {
+        id: req.params.blogId,
         name: req.body.name,
         youtubeUrl: req.body.youtubeUrl
     }
     blogs.push(newBlog)
     res.status(201).send(newBlog)
 
+})
+
+app.get('/blogs/:blogId', (req:Request, res:Response) =>{
+    const blog = blogs.find(b => b.id === req.params.blogId)
+    if(!blogs){
+        res.sendStatus(404)
+        return;
+    }
+    res.send(blog);
+})
+
+app.get('/posts', (req:Request, res: Response) =>{
+    res.send(posts);
+})
+
+app.delete( '/testing/all-data', (req: Request, res:Response) =>{
+    blogs.length = 0;
+    res.send(204)
 })
 
 app.listen(port, () => {
