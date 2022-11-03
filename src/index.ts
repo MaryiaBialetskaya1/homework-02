@@ -58,7 +58,7 @@ app.post('/blogs', (req:Request ,res: Response) =>{
     }
 
     const newBlog = {
-        id: req.params.blogId,
+        id: (new Date().getTime().toString()),
         name: req.body.name,
         youtubeUrl: req.body.youtubeUrl
     }
