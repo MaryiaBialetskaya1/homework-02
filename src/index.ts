@@ -13,7 +13,11 @@ let blogs: any = []
 app.get('/', (req:Request, res:Response) => {
     res.send('Hello Homework-02 from IT-Incubator!!!!')
 })
-
+app.delete( '/testing/all-data', (req: Request, res:Response) =>{
+    blogs.length = 0;
+    posts.length = 0;
+    res.send(204)
+})
 app.get('/blogs', (req:Request, res: Response) =>{
     res.send(blogs);
 })
