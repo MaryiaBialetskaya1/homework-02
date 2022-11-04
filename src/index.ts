@@ -99,11 +99,11 @@ app.put('/blogs/:blogId', (req:Request, res:Response) => {
         res.status(400).send({errorsMessages: error})
         return;
     }
-    const id = req.params.id
+    const id = req.params.blogId
     let blog = blogs.find(b => b.id === id)
     if(blog){
-        blog.name = name
-        blog.youtubeUrl = youtubeUrl
+        blog.name = req.body.name
+        blog.youtubeUrl = req.body.youtubeUrl
 
         res.status(204).send(blog)
     } else{
