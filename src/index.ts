@@ -101,14 +101,14 @@ app.put('/blogs/:blogId', (req:Request, res:Response) => {
     }
     const id = req.params.blogId
     let blog = blogs.find(b => b.id === id)
-    if(blog){
-        blog.name = req.body.name
-        blog.youtubeUrl = req.body.youtubeUrl
-
-        res.status(204).send(blog)
-    } else{
-        res.send(404)
+    if(!blog){
+        res.sendStatus(404)
+        return;
     }
+    blog.name = req.body.name
+    blog.youtubeUrl = req.body.youtubeUrl
+    res.sendStatus(204)
+
 })
 
 app.delete('/blogs/:blogId', (req: Request, res:Response) => {
