@@ -23,7 +23,7 @@ postsRouter.post('/', (req:Request, res:Response) =>{
     let title = req.body.title
     let shortDescription = req.body.shortDescription
     let content = req.body.content
-    //let blogId = req.body.blogId
+    let blogId = req.body.blogId
 
 
     if(!title || typeof title !== "string" || !title.trim() || title.length > 30){
