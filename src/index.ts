@@ -76,8 +76,101 @@ app.get('/blogs/:blogId', (req:Request, res:Response) =>{
     res.send(blog);
 })
 
+app.put('/blogs/:blogId', (req:Request, res:Response) => {
+    const error = []
+
+    let name = req.body.name
+    let youtubeUrl = req.body.youtubeUrl
+
+    if(!name || typeof name !== "string" || !name.trim() || name.length > 15){
+        error.push({
+            "message": "Incorrect name",
+            "field": "name"
+        })
+    }
+    if(youtubeUrl.length > 100){
+        error.push({
+            "message": "Incorrect youtubeUrl",
+            "field": "youtubeUrl"
+        })
+    }
+
+    if(error.length){
+        res.status(400).send({errorsMessages: error})
+        return;
+    }
+    const id = req.params.id
+    let blog = blogs.find(b => b.id === id)
+    if(blog){
+        blog.name = name
+        blog.youtubeUrl = youtubeUrl
+
+        res.status(204).send(blog)
+    } else{
+        res.send(404)
+    }
+})
+
+app.delete('/blogs/:blogId', (req: Request, res:Response) => {
+    const id = req.params.blogId
+    const blog = blogs.find(b => b.id === id)
+    if(!blog){
+        res.sendStatus(404)
+        return
+    }
+    blogs = blogs.filter(b => b.id !== id)
+    res.send(204)
+})
+
+
+
 app.get('/posts', (req:Request, res: Response) =>{
     res.send(posts);
+})
+
+app.post('posts', (req:Request, res:Response) =>{
+    const error = []
+
+    let title = req.body.title
+    let shortDescription = req.body.shortDescription
+    let content = req.body.content
+    let blogId = req.body.blogId
+
+
+    if(!title || typeof title !== "string" || !title.trim() || title.length > 30){
+        error.push({
+            "message": "Incorrect title",
+            "field": "title"
+        })
+    }
+    if(!shortDescription || typeof shortDescription !== "string" || !shortDescription.trim() || shortDescription.length > 100){
+        error.push({
+            "message": "Incorrect shortDescription",
+            "field": "shortDescription"
+        })
+    }
+    if(!content || typeof content !== "string" || !content.trim() || content.length > 1000){
+        error.push({
+            "message": "Incorrect content",
+            "field": "content"
+        })
+    }
+    if(error.length){
+        res.status(400).send({errorsMessages: error})
+        return;
+    }
+
+    const newPost = {
+        id: (new Date().getTime().toString()),
+        title: req.body.title,
+        shortDescription: req.body.shortDescription,
+        content: req.body.content,
+        blogId: req.body.blogId,
+        blogName: req.body.blogName
+
+    }
+    posts.push(newPost)
+    res.status(201).send(newPost)
 })
 
 app.delete( '/testing/all-data', (req: Request, res:Response) =>{
