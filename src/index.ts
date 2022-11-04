@@ -113,13 +113,19 @@ app.put('/blogs/:blogId', (req:Request, res:Response) => {
 
 app.delete('/blogs/:blogId', (req: Request, res:Response) => {
     const id = req.params.blogId
-    const blog = blogs.find(b => b.id === id)
-    if(!blog){
-        res.sendStatus(404)
-        return
+    const blog = blogs.filter(b => b.id !== id)
+    // if(!blog){
+    //     res.sendStatus(404)
+    //     return
+    // }
+    // blogs = blogs.filter(b => b.id !== id)
+    // res.send(204)
+    if(blog.length < blogs.length) {
+        blogs = blog
+        res.send(204)
+    } else{
+        res.send(404)
     }
-    blogs = blogs.filter(b => b.id !== id)
-    res.send(204)
 })
 
 
