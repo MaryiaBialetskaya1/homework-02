@@ -112,21 +112,19 @@ app.put('/blogs/:blogId', (req:Request, res:Response) => {
 })
 
 app.delete('/blogs/:blogId', (req: Request, res:Response) => {
-    const id = req.params.blogId
-    const blog = blogs.filter(b => b.id !== id)
-    // if(!blog){
-    //     res.sendStatus(404)
-    //     return
-    // }
-    // blogs = blogs.filter(b => b.id !== id)
-    // res.send(204)
-    if(blog.length < blogs.length) {
-        blogs = blog
+    const id = req.params.blogId;
+    const newBlog = blogs.filter(v => v.id !== id)
+    if(newBlog.length < blogs.length) {
+        blogs = newBlog
         res.send(204)
     } else{
         res.send(404)
     }
 })
+
+
+
+
 
 
 
@@ -140,7 +138,7 @@ app.post('posts', (req:Request, res:Response) =>{
     let title = req.body.title
     let shortDescription = req.body.shortDescription
     let content = req.body.content
-    let blogId = req.body.blogId
+    //let blogId = req.body.blogId
 
 
     if(!title || typeof title !== "string" || !title.trim() || title.length > 30){
