@@ -19,27 +19,7 @@ blogsRouter.get('/', (req:Request, res: Response) =>{
     //res.send(blogs);
 })
 
-blogsRouter.post('/',
-    // body('name')
-    //     .isString().withMessage('name should be string')
-    //     .trim().withMessage('name should be symbols string')
-    //     .notEmpty().withMessage('name is required')
-    //     .isLength({ max: 15 }).withMessage('max length of name is 15'),
-    //
-    // body('youtubeUrl')
-    //     .isString().withMessage('youtubeUrl should be string')
-    //     .trim().withMessage('youtubeUrl should be symbols string')
-    //     .notEmpty().withMessage('youtubeUrl is required')
-    //     .isLength({ max: 15 }).withMessage('youtubeUrl length of name is 15')
-    //     .isURL().withMessage('youtubeUrl be valid URL'),
-    //
-    (req:Request ,res: Response) =>{
-
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //     return res.status(400).json({ errors: errors.array() });
-    // }
-
+blogsRouter.post('/', (req:Request ,res: Response) =>{
 
     const newBlog = blogsRepository.createBlog(req.body.name, req.body.youtubeUrl);
     res.status(201).send(newBlog)
