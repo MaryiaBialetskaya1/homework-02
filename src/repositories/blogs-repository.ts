@@ -12,26 +12,6 @@ export const blogsRepository = {
     },
 
     createBlog(name: string, youtubeUrl: string){
-        const error = []
-
-        if(!name || typeof name !== "string" || !name.trim() || name.length > 15){
-            error.push({
-                "message": "Incorrect name",
-                "field": "name"
-            })
-        }
-        if(youtubeUrl.length > 100){
-            error.push({
-                "message": "Incorrect youtubeUrl",
-                "field": "youtubeUrl"
-            })
-        }
-
-        if(error.length){
-            return ({errorsMessages: error})
-            //return;
-        }
-
         const newBlog = {
             id: (new Date().getTime().toString()),
             name: name,
@@ -47,25 +27,6 @@ export const blogsRepository = {
     },
 
     updateBlog(id: string, name: string, youtubeUrl: string){
-        const error = []
-
-        if(!name || typeof name !== "string" || !name.trim() || name.length > 15){
-            error.push({
-                "message": "Incorrect name",
-                "field": "name"
-            })
-        }
-        if(youtubeUrl.length > 100){
-            error.push({
-                "message": "Incorrect youtubeUrl",
-                "field": "youtubeUrl"
-            })
-        }
-
-        if(error.length){
-            return ({errorsMessages: error})
-            //return;
-        }
 
         let blog = blogs.find(b => b.id === id)
         if(blog){
