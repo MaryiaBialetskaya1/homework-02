@@ -32,7 +32,7 @@ export const postsRepository = {
         return post;
     },
 
-    updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string, blogName: string){
+    updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string){
 
         let post = posts.find(b => b.id === id)
         if(post){
@@ -40,7 +40,7 @@ export const postsRepository = {
             post.shortDescription = shortDescription
             post.content = content
             post.blogId = blogId
-            post.blogName = blogName
+            post.blogName = "some string"
 
             return true
         } else{
