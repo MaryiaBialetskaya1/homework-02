@@ -8,10 +8,10 @@ const nameValidation = body('name')
 
 
 const youtubeUrlValidation = body('youtubeUrl')
-    .isString().withMessage('invalid youtubeUrl')
-    .trim().withMessage('invalid youtubeUrl')
-    .notEmpty().withMessage('invalid youtubeUrl')
-    .isLength({ max: 100 }).withMessage('max length of the youtubeUrl is 15')
-    .isURL().withMessage('invalid youtubeUrl');
+    .isString().withMessage('invalid youtubeUrl isString')
+    .trim().withMessage('invalid youtubeUrl trim')
+    .notEmpty().withMessage('invalid youtubeUrl notEmpty')
+    .isLength({ max: 100 }).withMessage('invalid youtubeUrl isLength')
+    .isURL().withMessage('invalid isURL');
 
 export {nameValidation, youtubeUrlValidation};
