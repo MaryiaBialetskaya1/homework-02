@@ -1,6 +1,7 @@
 import {Request, Response, Router} from "express";
 import {blogsRepository} from "../repositories/blogs-repository";
-import {body, validationResult} from "express-validator";
+import {nameValidation, youtubeUrlValidation} from "../middlewares/blogValidationMiddleware";
+import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 
 export const blogsRouter = Router({})
 
@@ -19,7 +20,11 @@ blogsRouter.get('/', (req:Request, res: Response) =>{
     //res.send(blogs);
 })
 
-blogsRouter.post('/', (req:Request ,res: Response) =>{
+blogsRouter.post('/',
+    nameValidation,
+    youtubeUrlValidation,
+    inputValidationMiddleware,
+    (req:Request ,res: Response) =>{
 
     const newBlog = blogsRepository.createBlog(req.body.name, req.body.youtubeUrl);
     res.status(201).send(newBlog)
