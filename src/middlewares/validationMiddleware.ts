@@ -14,7 +14,7 @@ export const youtubeUrlValidation = body('youtubeUrl')
 export const titleValidation = body('title')
     .trim()
     .notEmpty()
-    .isLength({max: 300})
+    .isLength({max: 30})
     .isString()
 
 export const shortDescriptionValidation = body('shortDescription')
