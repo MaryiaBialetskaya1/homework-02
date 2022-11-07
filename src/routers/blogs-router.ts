@@ -10,6 +10,15 @@ blogsRouter.get('/', (req:Request, res: Response) =>{
     res.send(foundBlogs);
 })
 
+blogsRouter.get('/:blogId', (req:Request, res:Response) =>{
+    const blog = blogsRepository.findBlogById(req.params.blogId)
+    if(blog){
+        res.send(blog);
+    } else{
+        res.send(404)
+    }
+})
+
 blogsRouter.post('/',
     nameValidation,
     youtubeUrlValidation,
@@ -18,15 +27,6 @@ blogsRouter.post('/',
 
     const newBlog = blogsRepository.createBlog(req.body.name, req.body.youtubeUrl);
     res.status(201).send(newBlog)
-})
-
-blogsRouter.get('/:blogId', (req:Request, res:Response) =>{
-    const blog = blogsRepository.findBlogById(req.params.blogId)
-    if(blog){
-        res.send(blog);
-    } else{
-        res.send(404)
-    }
 })
 
 blogsRouter.put('/:blogId', (req:Request, res:Response) => {
