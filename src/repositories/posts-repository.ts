@@ -40,7 +40,7 @@ export const postsRepository = {
             post.shortDescription = shortDescription
             post.content = content
             post.blogId = blogId
-            post.blogName = "some string"
+            //post.blogName = "some string"
 
             return true
         } else{
