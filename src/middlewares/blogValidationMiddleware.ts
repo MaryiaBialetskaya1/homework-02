@@ -3,7 +3,7 @@ import {body} from "express-validator";
 const nameValidation = body('name')
     .isString().withMessage('invalid name isString')
     .trim().withMessage('invalid name trim')
-    .notEmpty().withMessage('invalid name notEmpty')
+   // .notEmpty().withMessage('invalid name notEmpty')
     .isLength({ max: 15 }).withMessage('invalid name isLength');
 
 
