@@ -4,7 +4,7 @@ type postsType = {
     shortDescription: string
     content: string
     blogId: string
-    blogName?: string
+    blogName: string
 }
 
 export let posts: postsType[] = []
@@ -21,7 +21,7 @@ export const postsRepository = {
             shortDescription: shortDescription,
             content: content,
             blogId: blogId,
-            //blogName: blogName
+            blogName: "Some string"
         }
         posts.push(newPost)
         return newPost
