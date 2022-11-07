@@ -12,6 +12,6 @@ const youtubeUrlValidation = body('youtubeUrl')
     .trim().withMessage('invalid youtubeUrl trim')
     .notEmpty().withMessage('invalid youtubeUrl notEmpty')
     .isLength({ max: 100 }).withMessage('invalid youtubeUrl isLength')
-    //.isURL().withMessage('invalid isURL');
+    .isURL().withMessage('invalid isURL');
 
 export {nameValidation, youtubeUrlValidation};
