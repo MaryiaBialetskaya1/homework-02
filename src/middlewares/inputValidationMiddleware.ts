@@ -1,5 +1,6 @@
-import {NextFunction, Request, Response} from "express";
+
 import {validationResult} from "express-validator";
+import {NextFunction, Request, Response} from "express";
 
 export const inputValidationMiddleware = (req: Request, res: Response, next: NextFunction) =>{
     const errorsMessages = validationResult(req);
