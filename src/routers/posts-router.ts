@@ -1,6 +1,13 @@
 import {Request, Response, Router} from "express";
 import {postsRepository} from "../repositories/posts-repository";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
+import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
+import {
+    bodyBlogIdValidation,
+    contentValidation,
+    shortDescriptionValidation,
+    titleValidation
+} from "../middlewares/validationMiddleware";
 
 
 export const postsRouter = Router({})
@@ -21,6 +28,11 @@ postsRouter.get('/:id', (req: Request, res: Response)=>{
 
 postsRouter.post('/',
     checkAuthorizationMiddleware,
+    titleValidation,
+    shortDescriptionValidation,
+    contentValidation,
+    bodyBlogIdValidation,
+    inputValidationMiddleware,
     (req:Request, res:Response) =>{
     const newPost = postsRepository.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId, req.body.blogName);
     if(newPost){
@@ -40,6 +52,11 @@ postsRouter.post('/',
 
 postsRouter.put('/:id',
     checkAuthorizationMiddleware,
+    titleValidation,
+    shortDescriptionValidation,
+    contentValidation,
+    bodyBlogIdValidation,
+    inputValidationMiddleware,
     (req: Request, res: Response) =>{
     const isUpdated = postsRepository.updatePost(req.params.id, req.body.title,  req.body.shortDescription, req.body.content, req.body.blogId, req.body.blogName)
     if(isUpdated){
