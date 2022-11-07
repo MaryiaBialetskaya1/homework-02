@@ -8,8 +8,6 @@ export const blogsRouter = Router({})
 blogsRouter.get('/', (req:Request, res: Response) =>{
     const foundBlogs = blogsRepository.findBlogs();
     res.send(foundBlogs);
-
-    //res.send(blogs);
 })
 
 blogsRouter.post('/',
