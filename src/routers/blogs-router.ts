@@ -2,6 +2,7 @@ import {Request, Response, Router} from "express";
 import {blogsRepository} from "../repositories/blogs-repository";
 import {nameValidation, youtubeUrlValidation} from "../middlewares/blogValidationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
+import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 
 export const blogsRouter = Router({})
 
@@ -20,6 +21,7 @@ blogsRouter.get('/:blogId', (req:Request, res:Response) =>{
 })
 
 blogsRouter.post('/',
+    checkAuthorizationMiddleware,
     // nameValidation,
     // youtubeUrlValidation,
     // inputValidationMiddleware,
@@ -30,9 +32,10 @@ blogsRouter.post('/',
 })
 
 blogsRouter.put('/:blogId',
-    nameValidation,
-    youtubeUrlValidation,
-    inputValidationMiddleware,
+    checkAuthorizationMiddleware,
+    // nameValidation,
+    // youtubeUrlValidation,
+    // inputValidationMiddleware,
     (req:Request, res:Response) => {
         const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.youtubeUrl)
         if(isUpdated){
