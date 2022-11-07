@@ -1,16 +1,17 @@
 import {body} from "express-validator";
 
 const nameValidation = body('name')
-    .isString().withMessage('name should be a string')
-    .trim().withMessage('name should be symbols string')
-    .notEmpty().withMessage('name is required')
+    .isString().withMessage('invalid name')
+    .trim().withMessage('invalid name')
+    .notEmpty().withMessage('invalid name')
     .isLength({ max: 15 }).withMessage('max length of the name is 15');
 
+
 const youtubeUrlValidation = body('youtubeUrl')
-    .isString().withMessage('youtubeUrl should be string')
-    .trim().withMessage('youtubeUrl should be symbols string')
-    .notEmpty().withMessage('youtubeUrl is required')
-    .isLength({ max: 15 }).withMessage('youtubeUrl length of name is 15')
-    .isURL().withMessage('youtubeUrl be valid URL');
+    .isString().withMessage('invalid youtubeUrl')
+    .trim().withMessage('invalid youtubeUrl')
+    .notEmpty().withMessage('invalid youtubeUrl')
+    .isLength({ max: 100 }).withMessage('max length of the youtubeUrl is 15')
+    .isURL().withMessage('invalid youtubeUrl');
 
 export {nameValidation, youtubeUrlValidation};
