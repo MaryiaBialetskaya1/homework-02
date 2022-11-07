@@ -20,9 +20,9 @@ blogsRouter.get('/:blogId', (req:Request, res:Response) =>{
 })
 
 blogsRouter.post('/',
-    nameValidation,
-    youtubeUrlValidation,
-    inputValidationMiddleware,
+    // nameValidation,
+    // youtubeUrlValidation,
+    // inputValidationMiddleware,
     (req:Request ,res: Response) =>{
 
     const newBlog = blogsRepository.createBlog(req.body.name, req.body.youtubeUrl);
