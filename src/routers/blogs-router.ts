@@ -5,14 +5,6 @@ import {inputValidationMiddleware} from "../middlewares/inputValidationMiddlewar
 
 export const blogsRouter = Router({})
 
-// export type blogsType = {
-//     id: string
-//     name: string
-//     youtubeUrl: string
-// }
-//
-// export let blogs: blogsType[] = []
-
 blogsRouter.get('/', (req:Request, res: Response) =>{
     const foundBlogs = blogsRepository.findBlogs();
     res.send(foundBlogs);
