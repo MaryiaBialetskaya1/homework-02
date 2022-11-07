@@ -25,7 +25,6 @@ blogsRouter.get('/:blogId', (req:Request, res:Response) =>{
     if(blog){
         res.send(blog);
     } else{
-        // res.sendStatus(404)
         res.send(404)
     }
 })
