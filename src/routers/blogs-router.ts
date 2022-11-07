@@ -1,6 +1,6 @@
 import {Request, Response, Router} from "express";
 import {blogsRepository} from "../repositories/blogs-repository";
-import {nameValidation, youtubeUrlValidation} from "../middlewares/blogValidationMiddleware";
+import {nameValidation, youtubeUrlValidation} from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 
@@ -39,7 +39,6 @@ blogsRouter.put('/:blogId',
     (req:Request, res:Response) => {
         const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.youtubeUrl)
         if(isUpdated){
-            // const blog = blogsRepository.findBlogById(req.params.blogId)
             res.send(204)
         } else{
             res.send(404)

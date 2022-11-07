@@ -18,7 +18,8 @@ app.get('/', (req:Request, res:Response) => {
 })
 
 app.delete( '/testing/all-data', (req: Request, res:Response) =>{
-    blogs.length = 0;
+    //blogs.length = 0;
+    blogs.splice(0, blogs.length);
     res.send(204)
 })
 
