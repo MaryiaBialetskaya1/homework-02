@@ -22,9 +22,9 @@ blogsRouter.get('/:blogId', (req:Request, res:Response) =>{
 
 blogsRouter.post('/',
     checkAuthorizationMiddleware,
-    // nameValidation,
-    // youtubeUrlValidation,
-    // inputValidationMiddleware,
+    nameValidation,
+    youtubeUrlValidation,
+    inputValidationMiddleware,
     (req:Request ,res: Response) =>{
 
     const newBlog = blogsRepository.createBlog(req.body.name, req.body.youtubeUrl);
@@ -33,9 +33,9 @@ blogsRouter.post('/',
 
 blogsRouter.put('/:blogId',
     checkAuthorizationMiddleware,
-    // nameValidation,
-    // youtubeUrlValidation,
-    // inputValidationMiddleware,
+    nameValidation,
+    youtubeUrlValidation,
+    inputValidationMiddleware,
     (req:Request, res:Response) => {
         const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.youtubeUrl)
         if(isUpdated){
