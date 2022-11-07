@@ -1,4 +1,6 @@
 import {Request, Response, Router} from "express";
+import {blogsRepository} from "../repositories/blogs-repository";
+import {postsRepository} from "../repositories/posts-repository";
 
 export const postsRouter = Router({})
 
@@ -14,50 +16,33 @@ type postsType = {
 export let posts: postsType [] = []
 
 postsRouter.get('/', (req:Request, res: Response) =>{
-    res.send(posts);
+    const foundPosts = postsRepository.findPosts();
+    res.send(foundPosts);
 })
 
 postsRouter.post('/', (req:Request, res:Response) =>{
-    const error = []
 
-    let title = req.body.title
-    let shortDescription = req.body.shortDescription
-    let content = req.body.content
-    let blogId = req.body.blogId
-
-
-    if(!title || typeof title !== "string" || !title.trim() || title.length > 30){
-        error.push({
-            "message": "Incorrect title",
-            "field": "title"
+    const newPost = postsRepository.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId, req.body.blogName);
+    if(newPost){
+        return res.status(201).send(newPost)
+    } else {
+        return res.status(401).send({
+            "errorsMessages": [
+                {
+                    "message": "string",
+                    "field": "blogId"
+                }
+            ]
         })
     }
-    if(!shortDescription || typeof shortDescription !== "string" || !shortDescription.trim() || shortDescription.length > 100){
-        error.push({
-            "message": "Incorrect shortDescription",
-            "field": "shortDescription"
-        })
-    }
-    if(!content || typeof content !== "string" || !content.trim() || content.length > 1000){
-        error.push({
-            "message": "Incorrect content",
-            "field": "content"
-        })
-    }
-    if(error.length){
-        res.status(400).send({errorsMessages: error})
-        return;
-    }
 
-    const newPost = {
-        id: (new Date().getTime().toString()),
-        title: req.body.title,
-        shortDescription: req.body.shortDescription,
-        content: req.body.content,
-        blogId: req.body.blogId,
-        blogName: req.body.blogName
+})
 
+postsRouter.get('/:id', (req: Request, res: Response)=>{
+    const post = postsRepository.findPostById(req.params.id)
+    if(post){
+        res.send(post);
+    } else{
+        return
     }
-    posts.push(newPost)
-    res.status(201).send(newPost)
 })
