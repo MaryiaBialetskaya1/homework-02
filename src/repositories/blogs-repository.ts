@@ -32,12 +32,11 @@ export const blogsRepository = {
         if(blog){
             blog.name = name
             blog.youtubeUrl = youtubeUrl
-            return true
 
+            return true
         } else{
             return false;
         }
-
     },
 
     deleteBlog(id: string){
@@ -47,7 +46,7 @@ export const blogsRepository = {
                 return true;
             }
         }
-        return false
+        return false;
     }
 
 }

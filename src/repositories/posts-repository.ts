@@ -1,5 +1,3 @@
-import {blogs} from "./blogs-repository";
-
 type postsType = {
     id: string
     title: string
@@ -15,6 +13,7 @@ export const postsRepository = {
     findPosts() {
         return posts;
     },
+
     createPost(title: string, shortDescription: string, content: string, blogId:string, blogName: string){
         const newPost = {
             id: (new Date().getTime().toString()),
@@ -27,8 +26,35 @@ export const postsRepository = {
         posts.push(newPost)
         return newPost
     },
+
     findPostById(id: string){
-        const post = blogs.find(b => b.id === id)
+        const post = posts.find(b => b.id === id)
         return post;
+    },
+
+    updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string, blogName: string){
+
+        let post = posts.find(b => b.id === id)
+        if(post){
+            post.title = title
+            post.shortDescription = shortDescription
+            post.content = content
+            post.blogId = blogId
+            post.blogName = blogName
+
+            return true
+        } else{
+            return false;
+        }
+    },
+
+    deletePost(id: string){
+        for(let i = 0; i < posts.length; i++){
+            if(posts[i].id === id){
+                posts.splice(i, 1)
+                return true;
+            }
+        }
+        return false;
     }
 }
