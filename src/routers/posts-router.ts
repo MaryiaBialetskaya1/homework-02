@@ -34,7 +34,7 @@ postsRouter.post('/',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     (req:Request, res:Response) =>{
-    const newPost = postsRepository.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId, req.body.blogName);
+    const newPost = postsRepository.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
     if(newPost){
         return res.status(201).send(newPost)
     } else {
