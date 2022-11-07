@@ -29,15 +29,18 @@ blogsRouter.post('/',
     res.status(201).send(newBlog)
 })
 
-blogsRouter.put('/:blogId', (req:Request, res:Response) => {
-
-    const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.youtubeUrl)
-    if(isUpdated){
-        const blog = blogsRepository.findBlogById(req.params.blogId)
-        res.sendStatus(204)
-    } else{
-        res.sendStatus(404)
-    }
+blogsRouter.put('/:blogId',
+    nameValidation,
+    youtubeUrlValidation,
+    inputValidationMiddleware,
+    (req:Request, res:Response) => {
+        const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.youtubeUrl)
+        if(isUpdated){
+            // const blog = blogsRepository.findBlogById(req.params.blogId)
+            res.send(204)
+        } else{
+            res.send(404)
+        }
 })
 
 blogsRouter.delete('/:blogId', (req: Request, res:Response) => {
