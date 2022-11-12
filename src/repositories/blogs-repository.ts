@@ -15,7 +15,8 @@ export const blogsRepository = {
         const newBlog = {
             id: (new Date().getTime().toString()),
             name: name,
-            youtubeUrl: youtubeUrl
+            youtubeUrl: youtubeUrl,
+            createdAt: (new Date(Date.now()).toISOString()),
         }
         blogs.push(newBlog)
         return newBlog
