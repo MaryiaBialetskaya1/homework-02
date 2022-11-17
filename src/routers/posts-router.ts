@@ -38,7 +38,7 @@ postsRouter.post('/',
     if(newPost){
         return res.status(201).send(newPost)
     } else {
-        return res.status(401).send({
+        return res.status(400).send({
             "errorsMessages": [
                 {
                     "message": "string",
