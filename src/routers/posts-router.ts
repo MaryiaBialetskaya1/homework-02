@@ -37,17 +37,7 @@ postsRouter.post('/',
     const newPost = postsRepository.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
     if(newPost){
         return res.status(201).send(newPost)
-    } else { return res.status(400)
-        // return res.status(400).send({
-        //     "errorsMessages": [
-        //         {
-        //             "message": "string",
-        //             "field": "blogId"
-        //         }
-        //     ]
-        // })
     }
-
 })
 
 postsRouter.put('/:id',
