@@ -1,4 +1,5 @@
-import {body} from "express-validator";
+import {body, CustomValidator} from "express-validator";
+import {blogsRepository} from "../repositories/blogs-repository";
 
 export const nameValidation = body('name')
     .trim()
@@ -29,9 +30,19 @@ export const contentValidation = body('content')
     .isLength({max:1000})
     .isString()
 
+
+const isValidBlogId : CustomValidator = value =>{
+    const blog = blogsRepository.findBlogById(value.toString());
+    if(blog){
+        return true;
+    } else{
+        return Promise.reject('blog id is not found')
+    }
+}
 export const bodyBlogIdValidation = body('blogId')
     .trim()
-    .isLength({min: 13, max:13})
     .notEmpty()
     .isString()
+    .custom(isValidBlogId)
+// .isLength({min: 13, max:13})
 
