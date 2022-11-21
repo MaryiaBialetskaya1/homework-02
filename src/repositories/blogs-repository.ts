@@ -1,6 +1,7 @@
 type blogsType = {
     id: string
     name: string
+    description: string
     websiteUrl: string
 }
 
@@ -11,10 +12,11 @@ export const blogsRepository = {
         return blogs;
     },
 
-    createBlog(name: string, websiteUrl: string){
+    createBlog(name: string, description: string, websiteUrl: string){
         const newBlog = {
             id: (new Date().getTime().toString()),
             name: name,
+            description: description,
             websiteUrl: websiteUrl,
             createdAt: (new Date(Date.now()).toISOString()),
         }
@@ -27,11 +29,12 @@ export const blogsRepository = {
         return blog;
     },
 
-    updateBlog(id: string, name: string, websiteUrl: string){
+    updateBlog(id: string, name: string, description: string, websiteUrl: string){
 
         let blog = blogs.find(b => b.id === id)
         if(blog){
             blog.name = name
+            blog.description = description
             blog.websiteUrl = websiteUrl
 
             return true
