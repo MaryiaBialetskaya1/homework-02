@@ -6,7 +6,7 @@ export const nameValidation = body('name')
     .isLength({min:1, max: 15})
     .isString()
 
-export const youtubeUrlValidation = body('youtubeUrl')
+export const youtubeUrlValidation = body('websiteUrl')
     .trim()
     .isLength({min:1, max: 100})
     .isString()

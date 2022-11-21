@@ -27,7 +27,7 @@ blogsRouter.post('/',
     inputValidationMiddleware,
     (req:Request ,res: Response) =>{
 
-    const newBlog = blogsRepository.createBlog(req.body.name, req.body.youtubeUrl);
+    const newBlog = blogsRepository.createBlog(req.body.name, req.body.websiteUrl);
     res.status(201).send(newBlog)
 })
 
@@ -37,7 +37,7 @@ blogsRouter.put('/:blogId',
     youtubeUrlValidation,
     inputValidationMiddleware,
     (req:Request, res:Response) => {
-        const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.youtubeUrl)
+        const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.websiteUrl)
         if(isUpdated){
             res.send(204)
         } else{

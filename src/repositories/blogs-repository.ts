@@ -1,7 +1,7 @@
 type blogsType = {
     id: string
     name: string
-    youtubeUrl: string
+    websiteUrl: string
 }
 
 export let blogs: blogsType[] = []
@@ -11,11 +11,11 @@ export const blogsRepository = {
         return blogs;
     },
 
-    createBlog(name: string, youtubeUrl: string){
+    createBlog(name: string, websiteUrl: string){
         const newBlog = {
             id: (new Date().getTime().toString()),
             name: name,
-            youtubeUrl: youtubeUrl,
+            websiteUrl: websiteUrl,
             createdAt: (new Date(Date.now()).toISOString()),
         }
         blogs.push(newBlog)
@@ -27,12 +27,12 @@ export const blogsRepository = {
         return blog;
     },
 
-    updateBlog(id: string, name: string, youtubeUrl: string){
+    updateBlog(id: string, name: string, websiteUrl: string){
 
         let blog = blogs.find(b => b.id === id)
         if(blog){
             blog.name = name
-            blog.youtubeUrl = youtubeUrl
+            blog.websiteUrl = websiteUrl
 
             return true
         } else{
