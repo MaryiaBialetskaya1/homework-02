@@ -1,13 +1,13 @@
 import {Request, Response, Router} from "express";
-import {blogsRepository} from "../repositories/blogs-repository";
+import {blogsRepository, blogsType} from "../repositories/blogs-repository";
 import {descriptionValidation, nameValidation, youtubeUrlValidation} from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 
 export const blogsRouter = Router({})
 
-blogsRouter.get('/', (req:Request, res: Response) =>{
-    const foundBlogs = blogsRepository.findBlogs();
+blogsRouter.get('/', async (req: Request, res: Response) => {
+    const foundBlogs: blogsType[] = await blogsRepository.findBlogs();
     res.send(foundBlogs);
 })
 

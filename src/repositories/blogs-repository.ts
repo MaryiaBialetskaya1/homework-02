@@ -1,4 +1,4 @@
-type blogsType = {
+export type blogsType = {
     id: string
     name: string
     description: string
@@ -8,7 +8,7 @@ type blogsType = {
 export let blogs: blogsType[] = []
 
 export const blogsRepository = {
-    findBlogs(){
+     async findBlogs() : Promise<blogsType[]>{
         return blogs;
     },
 
