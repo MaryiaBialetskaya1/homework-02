@@ -1,7 +1,7 @@
 type postsType = {
     id: string
     title: string
-    description: string
+    shortDescription: string
     content: string
     blogId: string
     blogName: string
@@ -14,11 +14,11 @@ export const postsRepository = {
         return posts;
     },
 
-    createPost(title: string, description: string, content: string, blogId:string){
+    createPost(title: string, shortDescription: string, content: string, blogId:string){
         const newPost = {
             id: (new Date().getTime().toString()),
             title: title,
-            description: description,
+            shortDescription: shortDescription,
             content: content,
             blogId: blogId,
             blogName: "Some string",
@@ -33,12 +33,12 @@ export const postsRepository = {
         return post;
     },
 
-    updatePost(id: string, title: string, description: string, content: string, blogId: string){
+    updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string){
 
         let post = posts.find(b => b.id === id)
         if(post){
             post.title = title
-            post.description = description
+            post.shortDescription = shortDescription
             post.content = content
             post.blogId = blogId
             return true
