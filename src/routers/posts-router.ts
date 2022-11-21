@@ -34,7 +34,7 @@ postsRouter.post('/',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     (req:Request, res:Response) =>{
-    const newPost = postsRepository.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
+    const newPost = postsRepository.createPost(req.body.title, req.body.description, req.body.content, req.body.blogId);
     if(newPost){
         return res.status(201).send(newPost)
     }
@@ -48,7 +48,7 @@ postsRouter.put('/:id',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     (req: Request, res: Response) =>{
-    const isUpdated = postsRepository.updatePost(req.params.id, req.body.title,  req.body.shortDescription, req.body.content, req.body.blogId)
+    const isUpdated = postsRepository.updatePost(req.params.id, req.body.title,  req.body.description, req.body.content, req.body.blogId)
     if(isUpdated){
         res.send(204)
     }else{

@@ -18,7 +18,7 @@ export const titleValidation = body('title')
     .isLength({max: 30})
     .isString()
 
-export const shortDescriptionValidation = body('shortDescription')
+export const shortDescriptionValidation = body('description')
     .trim()
     .notEmpty()
     .isLength({max: 100})
