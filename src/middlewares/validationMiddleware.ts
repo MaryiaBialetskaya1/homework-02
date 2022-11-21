@@ -37,11 +37,11 @@ export const contentValidation = body('content')
     .isString()
 
 
-const isValidBlogId : CustomValidator = value =>{
-    const blog = blogsRepository.findBlogById(value.toString());
-    if(blog){
+const isValidBlogId : CustomValidator = async value => {
+    const blog = await blogsRepository.findBlogById(value.toString());
+    if (blog) {
         return true;
-    } else{
+    } else {
         return Promise.reject('blog id is not found')
     }
 }

@@ -11,8 +11,8 @@ blogsRouter.get('/', async (req: Request, res: Response) => {
     res.send(foundBlogs);
 })
 
-blogsRouter.get('/:blogId', (req:Request, res:Response) =>{
-    const blog = blogsRepository.findBlogById(req.params.blogId)
+blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
+    const blog = await blogsRepository.findBlogById(req.params.blogId)
     if(blog){
         res.send(blog);
     } else{
@@ -26,11 +26,11 @@ blogsRouter.post('/',
     descriptionValidation,
     youtubeUrlValidation,
     inputValidationMiddleware,
-    (req:Request ,res: Response) =>{
+    async (req: Request, res: Response) => {
 
-    const newBlog = blogsRepository.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-    res.status(201).send(newBlog)
-})
+        const newBlog: blogsType = await blogsRepository.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        res.status(201).send(newBlog)
+    })
 
 blogsRouter.put('/:blogId',
     checkAuthorizationMiddleware,
@@ -38,19 +38,19 @@ blogsRouter.put('/:blogId',
     descriptionValidation,
     youtubeUrlValidation,
     inputValidationMiddleware,
-    (req:Request, res:Response) => {
-        const isUpdated = blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.description, req.body.websiteUrl)
-        if(isUpdated){
+    async (req: Request, res: Response) => {
+        const isUpdated: boolean = await blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.description, req.body.websiteUrl)
+        if (isUpdated) {
             res.send(204)
-        } else{
+        } else {
             res.send(404)
         }
-})
+    })
 
 blogsRouter.delete('/:blogId',
     checkAuthorizationMiddleware,
-    (req: Request, res:Response) => {
-    const isDeleted = blogsRepository.deleteBlog(req.params.blogId)
+    async (req: Request, res:Response) => {
+    const isDeleted: boolean = await blogsRepository.deleteBlog(req.params.blogId)
     if(isDeleted){
         res.send(204)
     } else{

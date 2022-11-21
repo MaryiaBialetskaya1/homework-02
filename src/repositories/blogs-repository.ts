@@ -12,7 +12,7 @@ export const blogsRepository = {
         return blogs;
     },
 
-    createBlog(name: string, description: string, websiteUrl: string){
+    async createBlog(name: string, description: string, websiteUrl: string): Promise<blogsType>{
         const newBlog = {
             id: (new Date().getTime().toString()),
             name: name,
@@ -24,12 +24,12 @@ export const blogsRepository = {
         return newBlog
     },
 
-    findBlogById(id: string){
+    async findBlogById(id: string){
         const blog = blogs.find(b => b.id === id)
         return blog;
     },
 
-    updateBlog(id: string, name: string, description: string, websiteUrl: string){
+    async updateBlog(id: string, name: string, description: string, websiteUrl: string): Promise<boolean>{
 
         let blog = blogs.find(b => b.id === id)
         if(blog){
@@ -43,7 +43,7 @@ export const blogsRepository = {
         }
     },
 
-    deleteBlog(id: string){
+    async deleteBlog(id: string): Promise<boolean>{
         for(let i = 0; i < blogs.length; i++){
             if(blogs[i].id === id){
                 blogs.splice(i, 1)
