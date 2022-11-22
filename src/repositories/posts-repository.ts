@@ -1,21 +1,31 @@
-type postsType = {
+export type postsType = {
     id: string
     title: string
     shortDescription: string
     content: string
     blogId: string
     blogName: string
+    createdAt: any
 }
 
 export let posts: postsType[] = []
 
 export const postsRepository = {
-    findPosts() {
+    async findPosts() : Promise<postsType[]> {
         return posts;
     },
 
-    createPost(title: string, shortDescription: string, content: string, blogId:string){
-        const newPost = {
+    async findPostById(id: string): Promise<postsType | null>{
+        const post = posts.find(b => b.id === id)
+        if(post)
+            return post;
+        else {
+            return null;
+        }
+    },
+
+    async createPost(title: string, shortDescription: string, content: string, blogId:string): Promise<postsType>{
+        const newPost: postsType= {
             id: (new Date().getTime().toString()),
             title: title,
             shortDescription: shortDescription,
@@ -28,12 +38,7 @@ export const postsRepository = {
         return newPost
     },
 
-    findPostById(id: string){
-        const post = posts.find(b => b.id === id)
-        return post;
-    },
-
-    updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string){
+    async updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string): Promise<boolean>{
 
         let post = posts.find(b => b.id === id)
         if(post){
@@ -47,7 +52,7 @@ export const postsRepository = {
         }
     },
 
-    deletePost(id: string){
+    async deletePost(id: string): Promise<boolean>{
         for(let i = 0; i < posts.length; i++){
             if(posts[i].id === id){
                 posts.splice(i, 1)
