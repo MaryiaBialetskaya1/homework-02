@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import {blogsRouter} from "./routers/blogs-router";
 import {blogs} from "./repositories/blogs-repository";
 import {postsRouter} from "./routers/posts-router";
+import {runDb} from "./repositories/db";
 
 const app = express()
 const jsonBodyMiddleware = bodyParser.json()
@@ -22,6 +23,15 @@ app.delete( '/testing/all-data', (req: Request, res:Response) =>{
     res.send(204)
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+
+const startApp = async () =>{
+    await runDb()
+    app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`)
+    })
+}
+startApp()
+
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`)
+// })
