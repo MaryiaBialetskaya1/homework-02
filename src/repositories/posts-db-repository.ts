@@ -1,6 +1,5 @@
-import {blogCollection, postCollection, postsType} from "./db";
+import { postCollection, postsType} from "./db";
 import {blogsRepository} from "./blogs-db-repository";
-import {ObjectId} from "mongodb";
 
 export let posts: postsType[] = []
 
