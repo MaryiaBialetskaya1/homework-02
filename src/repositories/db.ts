@@ -13,11 +13,6 @@ export type blogsType = {
     websiteUrl: string
     createdAt: string
 }
-export type blogsTypeView = {
-    name: string
-    description: string
-    websiteUrl: string
-}
 export type postsType = {
     id: string
     title: string
@@ -25,7 +20,7 @@ export type postsType = {
     content: string
     blogId: string
     blogName: string
-    createdAt: any
+    createdAt: string
 }
 
 const db = client.db('blogsPosts')
