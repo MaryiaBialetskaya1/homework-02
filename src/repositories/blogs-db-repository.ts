@@ -1,9 +1,4 @@
-// export type blogsType = {
-//     id: string
-//     name: string
-//     description: string
-//     websiteUrl: string
-// }
+
 
 import {blogsType} from "./db";
 
