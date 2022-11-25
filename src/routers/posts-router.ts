@@ -1,5 +1,6 @@
 import {Request, Response, Router} from "express";
-import {postsRepository, postsType} from "../repositories/posts-repository";
+import {postsRepository} from "../repositories/posts-repository";
+import {postsType} from "../repositories/db";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {
