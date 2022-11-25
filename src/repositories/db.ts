@@ -11,6 +11,12 @@ export type blogsType = {
     name: string
     description: string
     websiteUrl: string
+    createdAt: string
+}
+export type blogsTypeView = {
+    name: string
+    description: string
+    websiteUrl: string
 }
 export type postsType = {
     id: string

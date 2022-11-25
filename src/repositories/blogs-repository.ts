@@ -1,5 +1,4 @@
 
-
 import {blogsType} from "./db";
 
 export let blogs: blogsType[] = []

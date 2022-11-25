@@ -1,5 +1,6 @@
 import {Request, Response, Router} from "express";
-import {blogsRepository} from "../repositories/blogs-repository";
+//import {blogsRepository} from "../repositories/blogs-repository";
+import {blogsRepository} from "../repositories/blogs-db-repository";
 import { blogsType } from "../repositories/db"
 import {descriptionValidation, nameValidation, youtubeUrlValidation} from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
