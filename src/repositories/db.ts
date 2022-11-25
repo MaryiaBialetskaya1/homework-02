@@ -8,6 +8,7 @@ if(!mongoUri){
     console.log('❗Url do not found.')
 }
 
+
 export const client = new MongoClient(mongoUri)
 
 export type blogsType = {
