@@ -1,8 +1,12 @@
 import { MongoClient } from "mongodb";
+import 'dotenv/config'
 
-//const mongoUri = process.env.mongoURI || 'mongodb://0.0.0.0:27017';
-const mongoUri = process.env.mongoURI || 'mongodb+srv://maryiabialetskaya:Garani11@cluster0.dup2iaz.mongodb.net/?retryWrites=true&w=majority'
+const mongoUri = process.env.mongoURL || 'mongodb://0.0.0.0:27017';
+//const mongoUri = process.env.mongoURL || 'mongodb+srv://maryiabialetskaya:Garani11@cluster0.dup2iaz.mongodb.net/?retryWrites=true&w=majority'
 console.log('url: ', mongoUri)
+if(!mongoUri){
+    console.log('❗Url do not found.')
+}
 
 export const client = new MongoClient(mongoUri)
 
