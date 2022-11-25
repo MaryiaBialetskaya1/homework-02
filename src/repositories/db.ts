@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 
-const mongoUri = process.env.mongoURI || 'mongodb://0.0.0.0:27017';
-//const mongoUri = process.env.mongoUri || 'mongodb+srv://maryiabialetskaya:Garani11@cluster0.dup2iaz.mongodb.net/?retryWrites=true&w=majority'
+//const mongoUri = process.env.mongoURI || 'mongodb://0.0.0.0:27017';
+const mongoUri = process.env.mongoURI || 'mongodb+srv://maryiabialetskaya:Garani11@cluster0.dup2iaz.mongodb.net/?retryWrites=true&w=majority'
 console.log('url: ', mongoUri)
 
 export const client = new MongoClient(mongoUri)

@@ -43,9 +43,9 @@ blogsRouter.put('/:blogId',
     async (req: Request, res: Response) => {
         const isUpdated: boolean = await blogsRepository.updateBlog(req.params.blogId, req.body.name, req.body.description, req.body.websiteUrl)
         if (isUpdated) {
-            res.send(204)
+            res.sendStatus(204)
         } else {
-            res.send(404)
+            res.sendStatus(404)
         }
     })
 
