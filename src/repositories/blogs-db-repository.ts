@@ -1,5 +1,5 @@
 
-import {blogCollection, blogsType} from "./db";
+import {blogCollection, blogsType, blogInputType} from "./db";
 
 
 export let blogs: blogsType[] = []
@@ -9,7 +9,7 @@ export const blogsRepository = {
          return blogCollection.find({}, {projection:{_id:0}}).toArray();
     },
 
-    async createBlog(name: string, description: string, websiteUrl: string): Promise<blogsType>{
+    async createBlog(name: string, description: string, websiteUrl: string): Promise<blogInputType>{
          const newBlog = {
              name: name,
              description: description,

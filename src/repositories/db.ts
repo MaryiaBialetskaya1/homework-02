@@ -11,12 +11,6 @@ if(!mongoUri){
 export const client = new MongoClient(mongoUri)
 
 export type blogsType = {
-    name: string
-    description: string
-    websiteUrl: string
-    createdAt: string
-}
-interface IBlogDb{
     _id: ObjectId
     name: string
     description: string
@@ -24,9 +18,12 @@ interface IBlogDb{
     createdAt: string
 }
 
- export type IBlogDbView = {
-    id: string
-} & Omit<IBlogDb, '_id'>
+ export type blogInputType = {
+     name: string
+     description: string
+     websiteUrl: string
+     createdAt: string
+}
 
 export type postsType = {
     id: string
