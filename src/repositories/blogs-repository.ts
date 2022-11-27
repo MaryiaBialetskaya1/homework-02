@@ -1,7 +1,15 @@
 
-import {blogsType} from "./db";
+//import {blogsType} from "./db";
 
+type blogsType = {
+    id: string
+    name: string
+    description: string
+    websiteUrl: string
+    createdAt: string
+}
 export let blogs: blogsType[] = []
+
 
 export const blogsRepository = {
      async findBlogs() : Promise<blogsType[]>{
