@@ -1,7 +1,7 @@
 import {Request, Response, Router} from "express";
 //import {blogsRepository} from "../repositories/blogs-repository";
 import {blogsRepository} from "../repositories/blogs-db-repository";
-import { blogsType } from "../repositories/db"
+import { blogsType} from "../repositories/db"
 import {descriptionValidation, nameValidation, youtubeUrlValidation} from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
@@ -30,7 +30,8 @@ blogsRouter.post('/',
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
 
-        const newBlog: blogsType = await blogsRepository.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        const newBlog = await blogsRepository.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        //const newBlog: blogsType = await blogsRepository.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
         res.status(201).send(newBlog)
     })
 

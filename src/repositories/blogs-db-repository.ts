@@ -1,17 +1,14 @@
 
-import {blogCollection, blogsType, blogInputType} from "./db";
+import {blogCollection, blogsType} from "./db";
 import {ObjectId} from "mongodb";
-
-
-//export let blogs: blogsType[] = []
 
 export const blogsRepository = {
      async findBlogs() : Promise<blogsType[]>{
          return blogCollection.find({}, {projection:{_id:0}}).toArray();
     },
 
-    async createBlog(name: string, description: string, websiteUrl: string): Promise<blogInputType>{
-         const newBlog: blogInputType = {
+    async createBlog(name: string, description: string, websiteUrl: string): Promise<string>{
+         const newBlog: blogsType = {
              name: name,
              description: description,
              websiteUrl: websiteUrl,
@@ -42,7 +39,7 @@ export const blogsRepository = {
         }
         return blog;
         // if(blog){
-        //     return {id: blog._id, name: blog.name, description: blog.description, websiteUrl: blog.websiteUrl, createdAt: blog.createdAt};
+        //     return {id: blog.id, name: blog.name, description: blog.description, websiteUrl: blog.websiteUrl, createdAt: blog.createdAt};
         //     } else{
         //         return null
         //     }
@@ -61,6 +58,11 @@ export const blogsRepository = {
     async deleteBlog(id: string): Promise<boolean>{
         const result = await blogCollection.deleteOne({_id: new ObjectId(id)})
         return result.deletedCount === 1
+    },
+
+    async deleteAllBlogs(){
+         await blogCollection.deleteMany({});
     }
+
 
 }
