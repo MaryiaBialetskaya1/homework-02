@@ -1,5 +1,6 @@
 
 import {blogCollection, blogsType, blogInputType} from "./db";
+import {ObjectId} from "mongodb";
 
 
 export let blogs: blogsType[] = []
@@ -9,21 +10,15 @@ export const blogsRepository = {
          return blogCollection.find({}, {projection:{_id:0}}).toArray();
     },
 
-    async createBlog(name: string, description: string, websiteUrl: string): Promise<blogInputType>{
-         const newBlog = {
+    async createBlog(name: string, description: string, websiteUrl: string): Promise<string>{
+         const newBlog: blogInputType = {
              name: name,
              description: description,
              websiteUrl: websiteUrl,
              createdAt: (new Date(Date.now()).toISOString()),
          }
          const result = await blogCollection.insertOne(newBlog);
-         return  {
-             id: result.insertedId.toString(),
-             name: newBlog.name,
-             description: newBlog.description,
-             websiteUrl: newBlog.websiteUrl,
-             createdAt: newBlog.createdAt
-         }
+         return result.insertedId.toString()
 
         // const newBlog = {
         //     id: (new Date().getTime().toString()),
@@ -41,9 +36,9 @@ export const blogsRepository = {
     },
 
     async findBlogById(id: string){
-        const blog = await blogCollection.findOne({id: id})
+        const blog = await blogCollection.findOne({_id: new ObjectId(id)})
         if(blog){
-            return {id: blog.id, name: blog.name, description: blog.description, websiteUrl: blog.websiteUrl, createdAt: blog.createdAt};
+            return {id: blog._id, name: blog.name, description: blog.description, websiteUrl: blog.websiteUrl, createdAt: blog.createdAt};
             } else{
                 return null
             }
