@@ -35,13 +35,17 @@ export const blogsRepository = {
         // return newBlog
     },
 
-    async findBlogById(id: string){
+    async findBlogById(id: string): Promise<blogsType | null>{
         const blog = await blogCollection.findOne({_id: new ObjectId(id)})
-        if(blog){
-            return {id: blog._id, name: blog.name, description: blog.description, websiteUrl: blog.websiteUrl, createdAt: blog.createdAt};
-            } else{
-                return null
-            }
+        if(!blog){
+            return null
+        }
+        return blog;
+        // if(blog){
+        //     return {id: blog._id, name: blog.name, description: blog.description, websiteUrl: blog.websiteUrl, createdAt: blog.createdAt};
+        //     } else{
+        //         return null
+        //     }
 
     },
 
