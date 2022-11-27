@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import {MongoClient, ObjectId} from "mongodb";
 import 'dotenv/config'
 
 const mongoUri = process.env.mongoURL || 'mongodb://0.0.0.0:27017';
@@ -17,6 +17,18 @@ export type blogsType = {
     websiteUrl: string
     createdAt: string
 }
+interface IBlogDb{
+    _id: ObjectId
+    name: string
+    description: string
+    websiteUrl: string
+    createdAt: string
+}
+
+ export type IBlogDbView = {
+    id: string
+} & Omit<IBlogDb, '_id'>
+
 export type postsType = {
     id: string
     title: string

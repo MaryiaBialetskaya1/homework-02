@@ -10,17 +10,31 @@ export const blogsRepository = {
     },
 
     async createBlog(name: string, description: string, websiteUrl: string): Promise<blogsType>{
+         const newBlog = {
+             name: name,
+             description: description,
+             websiteUrl: websiteUrl,
+             createdAt: (new Date(Date.now()).toISOString()),
+         }
+         const result = await blogCollection.insertOne(newBlog);
+         return  {
+             id: result.insertedId.toString(),
+             name: newBlog.name,
+             description: newBlog.description,
+             websiteUrl: newBlog.websiteUrl,
+             createdAt: newBlog.createdAt
+         }
 
-        const newBlog = {
-            id: (new Date().getTime().toString()),
-            name: name,
-            description: description,
-            websiteUrl: websiteUrl,
-            createdAt: (new Date(Date.now()).toISOString()),
-        }
-        const newObjectBlog: blogsType = Object.assign({}, newBlog);
-        await blogCollection.insertOne(newBlog);
-        return newObjectBlog
+        // const newBlog = {
+        //     id: (new Date().getTime().toString()),
+        //     name: name,
+        //     description: description,
+        //     websiteUrl: websiteUrl,
+        //     createdAt: (new Date(Date.now()).toISOString()),
+        // }
+        // const newObjectBlog: blogsType = Object.assign({}, newBlog);
+        // await blogCollection.insertOne(newBlog);
+        // return newObjectBlog
 
         // const result = await blogCollection.insertOne(newBlog)
         // return newBlog
