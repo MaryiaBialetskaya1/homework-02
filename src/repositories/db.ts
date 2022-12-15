@@ -11,7 +11,7 @@ if(!mongoUri){
 export const client = new MongoClient(mongoUri)
 
 export type blogsType = {
-    _id: ObjectId
+    //_id: ObjectId
     name: string
     description: string
     websiteUrl: string
