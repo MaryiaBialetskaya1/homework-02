@@ -7,29 +7,9 @@ export const blogsRepository = {
          return blogCollection.find({}, {projection:{_id:0}}).toArray();
     },
 
-    async createBlog(name: string, description: string, websiteUrl: string): Promise<string>{
-         const newBlog: blogsType = {
-             name: name,
-             description: description,
-             websiteUrl: websiteUrl,
-             createdAt: (new Date(Date.now()).toISOString()),
-         }
+    async createBlog(newBlog: blogsType ): Promise<string>{
          const result = await blogCollection.insertOne(newBlog);
-         return result.insertedId.toString()
-
-        // const newBlog = {
-        //     id: (new Date().getTime().toString()),
-        //     name: name,
-        //     description: description,
-        //     websiteUrl: websiteUrl,
-        //     createdAt: (new Date(Date.now()).toISOString()),
-        // }
-        // const newObjectBlog: blogsType = Object.assign({}, newBlog);
-        // await blogCollection.insertOne(newBlog);
-        // return newObjectBlog
-
-        // const result = await blogCollection.insertOne(newBlog)
-        // return newBlog
+         return result.insertedId.toString();
     },
 
     async findBlogById(id: string): Promise<blogsType | null>{
@@ -38,20 +18,13 @@ export const blogsRepository = {
             return null
         }
         return blog;
-        // if(blog){
-        //     return {id: blog.id, name: blog.name, description: blog.description, websiteUrl: blog.websiteUrl, createdAt: blog.createdAt};
-        //     } else{
-        //         return null
-        //     }
-
     },
 
     async updateBlog(id: string, name: string, description: string, websiteUrl: string): Promise<boolean>{
-        const result = await blogCollection.updateOne({_id: new ObjectId(id)}, {$set: {
-                name: name,
-                description: description,
-                websiteUrl: websiteUrl
-            }})
+        const result = await blogCollection.updateOne(
+            {_id: new ObjectId(id)},
+            {$set: {name: name, description: description, websiteUrl: websiteUrl}}
+        )
         return result.matchedCount === 1
     },
 
@@ -60,9 +33,8 @@ export const blogsRepository = {
         return result.deletedCount === 1
     },
 
-    async deleteAllBlogs(){
+    async deleteAll(){
          await blogCollection.deleteMany({});
     }
-
 
 }
