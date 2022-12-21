@@ -32,9 +32,8 @@ blogsRouter.post('/',
     async (req: Request, res: Response) => {
 
         const newBlog = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        //const newBlog: blogsType = await blogsRepository.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        //res.status(201).send(newBlog)
-        res.status(201).json(newBlog)
+        //const newBlog: blogsType = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        res.status(201).send(newBlog)
     })
 
 blogsRouter.put('/:blogId',
