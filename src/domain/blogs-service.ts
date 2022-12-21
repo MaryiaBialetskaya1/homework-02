@@ -1,4 +1,5 @@
 import {blogsRepository} from "../repositories/blogs-db-repository";
+import {ObjectId} from "mongodb";
 
 type TypeNewBlog = {
     name: string
@@ -18,6 +19,7 @@ export const blogsService  = {
 
     async createBlog(name: string, description: string, websiteUrl: string): Promise<string>{
         const newBlog = {
+            _id: new ObjectId(),
             name: name,
             description: description,
             websiteUrl: websiteUrl,
