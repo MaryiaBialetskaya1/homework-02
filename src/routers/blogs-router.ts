@@ -42,7 +42,6 @@ blogsRouter.post('/',
         const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
         const newBlog = await blogsQueryRepo.findBlogById(newBlogId);
         res.status(201).json(newBlog)
-
     })
 
 blogsRouter.put('/:blogId',
@@ -63,10 +62,11 @@ blogsRouter.put('/:blogId',
 blogsRouter.delete('/:blogId',
     checkAuthorizationMiddleware,
     async (req: Request, res:Response) => {
-    const isDeleted: boolean = await blogsService.deleteBlog(req.params.blogId)
-    if(isDeleted){
-        res.send(204)
-    } else{
-        res.send(404)
-    }
-})
+        const isDeleted: boolean = await blogsService.deleteBlog(req.params.blogId)
+        if(isDeleted){
+            res.send(204)
+        } else{
+            res.send(404)
+        }
+    })
+
