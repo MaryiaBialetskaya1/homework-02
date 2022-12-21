@@ -18,7 +18,7 @@ type TypeBlogDb = {
 };
 
 export const blogsQueryRepo = {
-    async findBlogsById(id: string): Promise<TypeBlog | null>{
+    async findBlogById(id: string): Promise<TypeBlog | null>{
         const foundBlog = await blogCollection.findOne({_id: new ObjectId(id)})
             if(!foundBlog?._id){
                 return null

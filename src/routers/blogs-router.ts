@@ -6,6 +6,7 @@ import { blogsType} from "../repositories/db"
 import {descriptionValidation, nameValidation, youtubeUrlValidation} from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
+import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 
 export const blogsRouter = Router({})
 
@@ -15,11 +16,17 @@ blogsRouter.get('/', async (req: Request, res: Response) => {
 })
 
 blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
-    const blog = await blogsService.findBlogById(req.params.blogId)
-    if(blog){
-        res.send(blog);
-    } else{
+    // const blog = await blogsService.findBlogById(req.params.blogId)
+    // if(blog){
+    //     res.send(blog);
+    // } else{
+    //     res.send(404)
+    // }
+    const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
+    if(!blog){
         res.send(404)
+    } else{
+        res.status(200).json(blog)
     }
 })
 
@@ -30,9 +37,12 @@ blogsRouter.post('/',
     youtubeUrlValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
+        // const newBlog = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        // res.status(201).send(newBlog)
+        const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        const newBlog = await blogsQueryRepo.findBlogById(newBlogId);
+        res.status(201).json(newBlog)
 
-        const newBlog = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        res.status(201).send(newBlog)
     })
 
 blogsRouter.put('/:blogId',
