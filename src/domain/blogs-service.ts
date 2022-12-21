@@ -2,6 +2,7 @@ import {blogsRepository} from "../repositories/blogs-db-repository";
 import {ObjectId} from "mongodb";
 
 type TypeNewBlog = {
+    _id: ObjectId
     name: string
     description: string
     websiteUrl: string
