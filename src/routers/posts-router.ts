@@ -1,7 +1,8 @@
 import {Request, Response, Router} from "express";
 //import {postsRepository} from "../repositories/posts-repository";
-import {postsRepository} from "../repositories/posts-db-repository";
+//import {postsRepository} from "../repositories/posts-db-repository";
 import {postsType} from "../repositories/db";
+import {postService} from "../domain/posts-service";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {
@@ -15,12 +16,12 @@ import {
 export const postsRouter = Router({})
 
 postsRouter.get('/', async (req: Request, res: Response) => {
-    const foundPosts: postsType[] = await postsRepository.findPosts();
+    const foundPosts: postsType[] = await postService.findPosts();
     res.send(foundPosts);
 })
 
 postsRouter.get('/:id', async (req: Request, res: Response)=>{
-    const post: postsType | null = await postsRepository.findPostById(req.params.id)
+    const post: postsType | null = await postService.findPostById(req.params.id)
     if(post){
         res.send(post);
     } else{
@@ -36,7 +37,7 @@ postsRouter.post('/',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     async (req:Request, res:Response) =>{
-    const newPost: postsType = await postsRepository.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
+    const newPost: postsType = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
     if(newPost){
         return res.status(201).send(newPost)
     }
@@ -50,7 +51,7 @@ postsRouter.put('/:id',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) =>{
-    const isUpdated: boolean = await postsRepository.updatePost(req.params.id, req.body.title,  req.body.shortDescription, req.body.content, req.body.blogId)
+    const isUpdated: boolean = await postService.updatePost(req.params.id, req.body.title,  req.body.shortDescription, req.body.content, req.body.blogId)
     if(isUpdated){
         res.send(204)
     }else{
@@ -61,7 +62,7 @@ postsRouter.put('/:id',
 postsRouter.delete('/:id',
     checkAuthorizationMiddleware,
     async (req: Request, res: Response) => {
-        const isDeleted = await postsRepository.deletePost(req.params.id)
+        const isDeleted = await postService.deletePost(req.params.id)
         if (isDeleted) {
             res.send(204)
         } else {
