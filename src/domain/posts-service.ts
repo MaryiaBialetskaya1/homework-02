@@ -2,7 +2,6 @@ import { postsRepository } from "../repositories/posts-db-repository";
 import { ObjectId } from "mongodb";
 import {blogsRepository} from "../repositories/blogs-db-repository";
 
-
 type TypeNewPost = {
     _id: ObjectId
     title: string
@@ -22,15 +21,18 @@ export const postService = {
         return postsRepository.findPostById(id);
     },
 
-    async createPost(title: string, shortDescription: string, content: string, blogId:string): Promise<TypeNewPost>{
-        const blog = await blogsRepository.findBlogById(blogId);
-        const newPost = {
+    async createPost(title: string, shortDescription: string, content: string, blogId:string): Promise<string | null>{
+        const blog = await blogsRepository.findBlogNameById(blogId);
+        if(!blog){
+            return null;
+        }
+        const newPost: TypeNewPost = {
             _id: new ObjectId(),
             title: title,
             shortDescription: shortDescription,
             content: content,
             blogId: blogId,
-            blogName: String(blog?.name),
+            blogName: blog,
             createdAt: (new Date(Date.now()).toISOString())
         }
         return await postsRepository.createPost(newPost);

@@ -38,9 +38,9 @@ postsRouter.post('/',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     async (req:Request, res:Response) =>{
-    const newPost: postsType = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
+    const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
     if(newPost){
-        return res.status(201).send(newPost);
+        return res.status(201).json(newPost);
     }
 })
 

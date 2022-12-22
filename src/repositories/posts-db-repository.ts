@@ -16,11 +16,12 @@ export const postsRepository = {
         return post;
     },
 
-    async createPost(newPost: postsType): Promise<postsType>{
+    async createPost(newPost: postsType): Promise<string>{
+        // const newObjectPost = Object.assign({}, newPost);
+        // await postCollection.insertOne(newPost);
 
-        const newObjectPost: postsType = Object.assign({}, newPost);
-        await postCollection.insertOne(newPost);
-        return newObjectPost;
+        const result = await postCollection.insertOne(newPost);
+        return result.insertedId.toString();
     },
 
     async updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string): Promise<boolean>{

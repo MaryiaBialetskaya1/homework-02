@@ -5,17 +5,23 @@ export const blogsRepository = {
      async findBlogs() : Promise<blogsType[]>{
          return blogCollection.find({}, {projection:{_id:0}}).toArray();
     },
-    async createBlog(newBlog: blogsType ): Promise<string>{
-         const result = await blogCollection.insertOne(newBlog);
-         return result.insertedId.toString();
-        //return newBlog
-    },
     async findBlogById(id: string): Promise<blogsType | null>{
         const blog = await blogCollection.findOne({_id: new ObjectId(id)})
         if(!blog){
             return null;
         }
         return blog;
+    },
+    async findBlogNameById(id: string): Promise<string | null>{
+         const blog = await blogCollection.findOne({_id: new ObjectId(id)})
+        if(!blog){
+            return null
+        }
+        return blog.name
+    },
+    async createBlog(newBlog: blogsType ): Promise<string>{
+         const result = await blogCollection.insertOne(newBlog);
+         return result.insertedId.toString();
     },
     async updateBlog(id: string, name: string, description: string, websiteUrl: string): Promise<boolean>{
         const result = await blogCollection.updateOne(
