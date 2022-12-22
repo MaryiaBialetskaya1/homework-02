@@ -1,7 +1,7 @@
 import { blogCollection } from "./db";
 import { ObjectId } from "mongodb";
 
-type TypeBlog = {
+type TypeBlogView = {
     id: string
     name: string
     description: string
@@ -18,7 +18,7 @@ type TypeBlogDb = {
 };
 
 export const blogsQueryRepo = {
-    async findBlogById(id: string): Promise<TypeBlog | null>{
+    async findBlogById(id: string): Promise<TypeBlogView | null>{
         const foundBlog = await blogCollection.findOne({_id: new ObjectId(id)})
             if(!foundBlog?._id){
                 return null
@@ -27,7 +27,7 @@ export const blogsQueryRepo = {
         }
     },
 
-    blogWithReplaceId (object: TypeBlogDb): TypeBlog{
+    blogWithReplaceId (object: TypeBlogDb): TypeBlogView{
         return {
             id: object._id.toString(),
             name: object.name,

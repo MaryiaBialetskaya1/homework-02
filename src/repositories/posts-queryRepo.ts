@@ -1,7 +1,7 @@
 import {postCollection} from "./db";
 import { ObjectId } from "mongodb";
 
-type TypePost = {
+type TypePostView = {
     id: string
     title: string
     shortDescription: string
@@ -22,7 +22,7 @@ type TypePostDb = {
 };
 
 export  const postsQueryRepo = {
-    async findPostById(id: string): Promise<TypePost | null>{
+    async findPostById(id: string): Promise<TypePostView | null>{
         const foundPost = await postCollection.findOne({_id: new ObjectId(id)})
         if(!foundPost?._id){
             return null
@@ -31,7 +31,7 @@ export  const postsQueryRepo = {
         }
     },
 
-    blogWithReplaceId (object: TypePostDb): TypePost{
+    blogWithReplaceId (object: TypePostDb): TypePostView{
         return {
             id: object._id.toString(),
             title: object.title,
