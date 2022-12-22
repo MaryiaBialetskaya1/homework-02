@@ -1,4 +1,3 @@
-
 import {blogCollection, blogsType} from "./db";
 import {ObjectId} from "mongodb";
 

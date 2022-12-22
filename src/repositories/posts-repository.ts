@@ -1,14 +1,14 @@
-// export type postsType = {
-//     id: string
-//     title: string
-//     shortDescription: string
-//     content: string
-//     blogId: string
-//     blogName: string
-//     createdAt: any
-// }
+export type postsType = {
+    id: string
+    title: string
+    shortDescription: string
+    content: string
+    blogId: string
+    blogName: string
+    createdAt: any
+}
 
-import {postsType} from "./db";
+//import {postsType} from "./db";
 
 export let posts: postsType[] = []
 

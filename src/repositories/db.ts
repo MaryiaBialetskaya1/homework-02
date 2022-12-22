@@ -19,7 +19,7 @@ export type blogsType = {
 }
 
 export type postsType = {
-    id: string
+    _id: ObjectId
     title: string
     shortDescription: string
     content: string
