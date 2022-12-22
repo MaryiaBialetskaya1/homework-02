@@ -4,7 +4,7 @@ import 'dotenv/config'
 const mongoUri = process.env.mongoURL || 'mongodb://0.0.0.0:27017';
 console.log('url: ', mongoUri)
 if(!mongoUri){
-    console.log('❗Url do not found.')
+    console.log('❗Url not found.')
 }
 
 
