@@ -11,6 +11,7 @@ import {
     shortDescriptionValidation,
     titleValidation
 } from "../middlewares/validationMiddleware";
+import {postsQueryRepo} from "../repositories/posts-queryRepo";
 
 
 export const postsRouter = Router({})
@@ -21,7 +22,7 @@ postsRouter.get('/', async (req: Request, res: Response) => {
 })
 
 postsRouter.get('/:id', async (req: Request, res: Response)=>{
-    const post: postsType | null = await postService.findPostById(req.params.id);
+    const post = await postsQueryRepo.findPostById(req.params.id);
     if(post){
         res.status(200).json(post);
     } else{
