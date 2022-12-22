@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 import {blogsRepository} from "../repositories/blogs-db-repository";
 
 type TypeNewPost = {
-    _id: ObjectId
+    //_id: ObjectId
     title: string
     shortDescription: string
     content: string
@@ -27,7 +27,7 @@ export const postService = {
             return null;
         }
         const newPost: TypeNewPost = {
-            _id: new ObjectId(),
+            //_id: new ObjectId(),
             title: title,
             shortDescription: shortDescription,
             content: content,
