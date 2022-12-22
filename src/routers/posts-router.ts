@@ -21,11 +21,11 @@ postsRouter.get('/', async (req: Request, res: Response) => {
 })
 
 postsRouter.get('/:id', async (req: Request, res: Response)=>{
-    const post: postsType | null = await postService.findPostById(req.params.id)
+    const post: postsType | null = await postService.findPostById(req.params.id);
     if(post){
-        res.send(post);
+        res.status(200).json(post);
     } else{
-        res.send(404)
+        res.send(404);
     }
 })
 
@@ -39,7 +39,7 @@ postsRouter.post('/',
     async (req:Request, res:Response) =>{
     const newPost: postsType = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
     if(newPost){
-        return res.status(201).send(newPost)
+        return res.status(201).send(newPost);
     }
 })
 
@@ -51,22 +51,22 @@ postsRouter.put('/:id',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) =>{
-    const isUpdated: boolean = await postService.updatePost(req.params.id, req.body.title,  req.body.shortDescription, req.body.content, req.body.blogId)
+    const isUpdated: boolean = await postService.updatePost(req.params.id, req.body.title,  req.body.shortDescription, req.body.content, req.body.blogId);
     if(isUpdated){
-        res.send(204)
+        res.send(204);
     }else{
-        res.send(404)
+        res.send(404);
     }
 })
 
 postsRouter.delete('/:id',
     checkAuthorizationMiddleware,
     async (req: Request, res: Response) => {
-        const isDeleted = await postService.deletePost(req.params.id)
+        const isDeleted = await postService.deletePost(req.params.id);
         if (isDeleted) {
-            res.send(204)
+            res.send(204);
         } else {
-            res.send(404)
+            res.send(404);
         }
     })
 

@@ -1,8 +1,7 @@
 import { postCollection, postsType} from "./db";
-import {blogsRepository} from "./blogs-db-repository";
 import {ObjectId} from "mongodb";
 
-export let posts: postsType[] = []
+export let posts: postsType[] = [];
 
 export const postsRepository = {
     async findPosts() : Promise<postsType[]> {
@@ -20,8 +19,8 @@ export const postsRepository = {
     async createPost(newPost: postsType): Promise<postsType>{
 
         const newObjectPost: postsType = Object.assign({}, newPost);
-        await postCollection.insertOne(newPost)
-        return newObjectPost
+        await postCollection.insertOne(newPost);
+        return newObjectPost;
     },
 
     async updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string): Promise<boolean>{
@@ -34,7 +33,7 @@ export const postsRepository = {
                 content: content,
                 blogId: blogId}}
         );
-        return result.matchedCount === 1
+        return result.matchedCount === 1;
     },
 
     async deletePost(id: string): Promise<boolean> {
@@ -43,6 +42,6 @@ export const postsRepository = {
     },
 
     async deleteAll(){
-        await postCollection.deleteMany({})
+        await postCollection.deleteMany({});
     }
 }

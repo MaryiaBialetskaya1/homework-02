@@ -11,17 +11,11 @@ import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 export const blogsRouter = Router({})
 
 blogsRouter.get('/', async (req: Request, res: Response) => {
-    const foundBlogs = await blogsService.findBlogs();
+    const foundBlogs: blogsType[] = await blogsService.findBlogs();
     res.send(foundBlogs);
 })
 
 blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
-    // const blog = await blogsService.findBlogById(req.params.blogId)
-    // if(blog){
-    //     res.send(blog);
-    // } else{
-    //     res.send(404)
-    // }
     const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
     if(!blog){
         res.send(404)
@@ -37,8 +31,6 @@ blogsRouter.post('/',
     youtubeUrlValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
-        // const newBlog = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        // res.status(201).send(newBlog)
         const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
         const newBlog = await blogsQueryRepo.findBlogById(newBlogId);
         res.status(201).json(newBlog)

@@ -23,7 +23,7 @@ export const postService = {
     },
 
     async createPost(title: string, shortDescription: string, content: string, blogId:string): Promise<TypeNewPost>{
-        const blog = await blogsRepository.findBlogById(blogId)
+        const blog = await blogsRepository.findBlogById(blogId);
         const newPost = {
             _id: new ObjectId(),
             title: title,
@@ -33,7 +33,7 @@ export const postService = {
             blogName: String(blog?.name),
             createdAt: (new Date(Date.now()).toISOString())
         }
-        return await postsRepository.createPost(newPost)
+        return await postsRepository.createPost(newPost);
     },
 
     async updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string): Promise<boolean>{
@@ -42,5 +42,9 @@ export const postService = {
 
     async deletePost(id: string): Promise<boolean> {
         return postsRepository.deletePost(id);
+    },
+
+    async deleteAll(){
+        return postsRepository.deleteAll();
     }
 }
