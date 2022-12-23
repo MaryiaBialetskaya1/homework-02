@@ -1,4 +1,4 @@
-import {MongoClient, ObjectId} from "mongodb";
+import {MongoClient} from "mongodb";
 import 'dotenv/config'
 
 const mongoUri = process.env.mongoURL || 'mongodb://0.0.0.0:27017';
@@ -12,6 +12,7 @@ export const client = new MongoClient(mongoUri)
 
 export type blogsType = {
     //_id: ObjectId
+    // id: string
     name: string
     description: string
     websiteUrl: string
@@ -20,6 +21,7 @@ export type blogsType = {
 
 export type postsType = {
     //_id: ObjectId
+    // id: string
     title: string
     shortDescription: string
     content: string

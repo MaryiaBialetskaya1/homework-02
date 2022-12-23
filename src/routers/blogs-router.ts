@@ -11,7 +11,7 @@ import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 export const blogsRouter = Router({})
 
 blogsRouter.get('/', async (req: Request, res: Response) => {
-    const foundBlogs: blogsType[] = await blogsService.findBlogs();
+    const foundBlogs: blogsType[] = await blogsService.findBlogs()
     res.send(foundBlogs);
 })
 

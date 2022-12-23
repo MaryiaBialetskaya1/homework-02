@@ -18,6 +18,11 @@ type TypeBlogDb = {
 };
 
 export const blogsQueryRepo = {
+    // async findBlogs(): Promise<TypeViewBlog[]>{
+    //     const foundBlogs = await blogCollection.find({}).toArray()
+    //     return this.blogWithReplaceId(foundBlogs)
+    // },
+
     async findBlogById(id: string): Promise<TypeViewBlog | null>{
         const foundBlog = await blogCollection.findOne({_id: new ObjectId(id)})
             if(!foundBlog?._id){
