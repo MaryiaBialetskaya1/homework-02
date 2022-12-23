@@ -5,7 +5,7 @@ export let posts: postsType[] = [];
 
 export const postsRepository = {
     async findPosts() : Promise<postsType[]> {
-        return postCollection.find({}, ).toArray(); //{projection: {_id:0}}
+        return postCollection.find({}, ).toArray();
     },
 
     async findPostById(id: string): Promise<postsType | null> {

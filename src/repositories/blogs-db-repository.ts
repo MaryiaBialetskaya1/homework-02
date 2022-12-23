@@ -3,7 +3,7 @@ import {ObjectId} from "mongodb";
 
 export const blogsRepository = {
      async findBlogs() : Promise<blogsType[]>{
-         return blogCollection.find({}, ).toArray(); //{projection:{_id:0}}
+         return blogCollection.find({}, ).toArray();
     },
     // async findBlogById(id: string): Promise<blogsType | null>{
     //     const blog  = await blogCollection.findOne({_id: new ObjectId(id)})
