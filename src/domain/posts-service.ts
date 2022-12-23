@@ -1,7 +1,9 @@
 import { postsRepository } from "../repositories/posts-db-repository";
 import {blogsRepository} from "../repositories/blogs-db-repository";
+import {ObjectId} from "mongodb";
 
 type TypeNewPost = {
+    //_id: ObjectId
     title: string
     shortDescription: string
     content: string
