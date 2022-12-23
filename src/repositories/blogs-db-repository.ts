@@ -35,7 +35,6 @@ export const blogsRepository = {
         return result.deletedCount === 1;
     },
     async deleteAll(){
-        const result = await blogCollection.deleteMany({});
-        return result
+        return await blogCollection.deleteMany({});
     }
 }
