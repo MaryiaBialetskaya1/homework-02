@@ -7,6 +7,7 @@ import {descriptionValidation, nameValidation, youtubeUrlValidation} from "../mi
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
+import {postService} from "../domain/posts-service";
 
 export const blogsRouter = Router({})
 
@@ -23,6 +24,29 @@ blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
         res.status(200).json(blog)
     }
 })
+
+
+blogsRouter.post('/:blogId/posts',
+    checkAuthorizationMiddleware,
+    nameValidation,
+    descriptionValidation,
+    youtubeUrlValidation,
+    inputValidationMiddleware,
+    async (req: Request, res: Response) => {
+        const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        const newBlog = await blogsQueryRepo.findBlogById(newBlogId);
+        res.status(201).json(newBlog)
+    })
+
+// blogsRouter.get('/:blogId/posts', async (req:Request, res:Response) =>{
+//     const post = await postService.findBlogPost(req.params.blogId)
+//     if(!post){
+//         res.send(404)
+//     } else{
+//         res.status(200).json(post)
+//     }
+// })
+
 
 blogsRouter.post('/',
     checkAuthorizationMiddleware,
@@ -59,6 +83,17 @@ blogsRouter.delete('/:blogId',
             res.send(204)
         } else{
             res.send(404)
+        }
+    })
+
+blogsRouter.delete('/',
+    checkAuthorizationMiddleware,
+    async (req: Request, res:Response) => {
+        const isDeleted = await blogsService.deleteAll()
+        if (!isDeleted) {
+            res.send(404)
+        } else {
+            res.send(204)
         }
     })
 

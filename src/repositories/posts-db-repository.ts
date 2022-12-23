@@ -5,7 +5,7 @@ export let posts: postsType[] = [];
 
 export const postsRepository = {
     async findPosts() : Promise<postsType[]> {
-        return postCollection.find({}, {projection: {_id:0}}).toArray();
+        return postCollection.find({}, ).toArray(); //{projection: {_id:0}}
     },
 
     async findPostById(id: string): Promise<postsType | null> {
@@ -43,6 +43,6 @@ export const postsRepository = {
     },
 
     async deleteAll(){
-        await postCollection.deleteMany({});
+       await postCollection.deleteMany({});
     }
 }

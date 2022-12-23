@@ -1,4 +1,4 @@
-import { blogCollection } from "./db";
+import {blogCollection, blogsType} from "./db";
 import { ObjectId } from "mongodb";
 
 type TypeViewBlog = {

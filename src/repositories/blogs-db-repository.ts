@@ -3,7 +3,7 @@ import {ObjectId} from "mongodb";
 
 export const blogsRepository = {
      async findBlogs() : Promise<blogsType[]>{
-         return blogCollection.find({}, {projection:{_id:0}}).toArray();
+         return blogCollection.find({}, ).toArray(); //{projection:{_id:0}}
     },
     // async findBlogById(id: string): Promise<blogsType | null>{
     //     const blog  = await blogCollection.findOne({_id: new ObjectId(id)})
@@ -35,6 +35,7 @@ export const blogsRepository = {
         return result.deletedCount === 1;
     },
     async deleteAll(){
-         await blogCollection.deleteMany({});
+        const result = await blogCollection.deleteMany({});
+        return result
     }
 }
