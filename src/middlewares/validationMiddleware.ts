@@ -1,5 +1,6 @@
 import {body, CustomValidator} from "express-validator";
-import {blogsRepository} from "../repositories/blogs-repository";
+//import {blogsRepository} from "../repositories/blogs-repository";
+import {blogsRepository} from "../repositories/blogs-db-repository";
 
 export const nameValidation = body('name')
     .trim()
