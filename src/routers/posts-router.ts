@@ -12,6 +12,7 @@ import {
     titleValidation
 } from "../middlewares/validationMiddleware";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
+import {blogsService} from "../domain/blogs-service";
 
 
 export const postsRouter = Router({})
@@ -38,10 +39,8 @@ postsRouter.post('/',
     bodyBlogIdValidation,
     inputValidationMiddleware,
     async (req:Request, res:Response) =>{
-    const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
-    if(newPost){
-        return res.status(201).json(newPost);
-    }
+        const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
+        res.status(201).json(newPost)
 })
 
 postsRouter.put('/:id',

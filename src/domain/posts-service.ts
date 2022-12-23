@@ -28,10 +28,10 @@ export const postService = {
         }
         const newPost: TypeNewPost = {
             //_id: new ObjectId(),
-            title: title,
-            shortDescription: shortDescription,
-            content: content,
-            blogId: blogId,
+            title,
+            shortDescription,
+            content,
+            blogId,
             blogName: blog,
             createdAt: (new Date(Date.now()).toISOString())
         }
