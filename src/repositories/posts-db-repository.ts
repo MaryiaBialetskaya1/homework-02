@@ -16,7 +16,7 @@ export const postsRepository = {
         return post;
     },
 
-    async createPost(newPost: postsType): Promise<string>{
+    async createPost(newPost: postsType): Promise<string | null>{
         // const newObjectPost = Object.assign({}, newPost);
         // await postCollection.insertOne(newPost);
 

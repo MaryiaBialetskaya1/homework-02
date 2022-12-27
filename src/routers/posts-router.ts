@@ -40,7 +40,8 @@ postsRouter.post('/',
     inputValidationMiddleware,
     async (req:Request, res:Response) =>{
         const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
-        res.status(201).json(newPost)
+        const post = await postsQueryRepo.findPostById(newPost)
+        res.status(201).json(post)
 })
 
 postsRouter.put('/:id',
