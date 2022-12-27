@@ -3,7 +3,13 @@ import {Request, Response, Router} from "express";
 //import {blogsRepository} from "../repositories/blogs-db-repository";
 import {blogsService} from "../domain/blogs-service";
 import { blogsType} from "../repositories/db"
-import {descriptionValidation, nameValidation, youtubeUrlValidation} from "../middlewares/validationMiddleware";
+import {
+    contentValidation,
+    descriptionValidation,
+    nameValidation, shortDescriptionValidation,
+    titleValidation,
+    youtubeUrlValidation
+} from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
@@ -78,9 +84,9 @@ blogsRouter.delete('/',
 
 blogsRouter.post('/:blogId/posts',
     checkAuthorizationMiddleware,
-    nameValidation,
-    descriptionValidation,
-    youtubeUrlValidation,
+    titleValidation,
+    shortDescriptionValidation,
+    contentValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
         //const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
