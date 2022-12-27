@@ -40,6 +40,6 @@ export const blogsRepository = {
 
     // working now
     async getBloggersPost(id: string): Promise<postsType[]> {
-        return await postCollection.find({_id: new ObjectId(id)}).toArray();
+        return await postCollection.find({}).toArray();
     }
 }
