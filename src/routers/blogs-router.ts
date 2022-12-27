@@ -89,10 +89,10 @@ blogsRouter.post('/:blogId/posts',
     contentValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
-        const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        const newBlog = await blogsQueryRepo.findBlogById(newBlogId);
+        //const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
 
-        if(!newBlog){
+        if(!blog){
             res.send(404)
         } else{
             const newPost = await postService.createPost(
