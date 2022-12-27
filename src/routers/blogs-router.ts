@@ -35,7 +35,19 @@ blogsRouter.post('/:blogId/posts',
     async (req: Request, res: Response) => {
         const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
         const newBlog = await blogsQueryRepo.findBlogById(newBlogId);
-        res.status(201).json(newBlog)
+
+        if(!newBlog){
+            res.send(404)
+        } else{
+            const newPost = await postService.createPost(
+                req.body.title,
+                req.body.shortDescription,
+                req.body.content,
+                req.body.blogId)
+
+            res.status(200).json(newPost)
+
+        }
     })
 
 // blogsRouter.get('/:blogId/posts', async (req:Request, res:Response) =>{
