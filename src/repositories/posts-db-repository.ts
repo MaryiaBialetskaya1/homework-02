@@ -40,6 +40,6 @@ export const postsRepository = {
     },
 
     async deleteAll(){
-       await postCollection.deleteMany({});
+       return await postCollection.deleteMany({});
     }
 }
