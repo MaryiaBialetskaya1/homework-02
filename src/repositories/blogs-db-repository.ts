@@ -1,4 +1,4 @@
-import {blogCollection, blogsType} from "./db";
+import {blogCollection, blogsType, postCollection, postsType} from "./db";
 import {ObjectId} from "mongodb";
 
 export const blogsRepository = {
@@ -39,7 +39,7 @@ export const blogsRepository = {
     },
 
     // working now
-    async getBloggersPost(id: string) {
-
+    async getBloggersPost(id: string): Promise<postsType[]> {
+        return await postCollection.find({_id: new ObjectId(id)}).toArray();
     }
 }

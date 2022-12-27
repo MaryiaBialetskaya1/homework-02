@@ -102,7 +102,7 @@ blogsRouter.post('/:blogId/posts',
     })
 
 blogsRouter.get('/:blogId/posts', async (req:Request, res:Response) =>{
-    const post = await blogsQueryRepo.findBlogById(req.params.blogId)
+    const post = await blogsService.getBloggersPost(req.params.blogId)
     if(!post){
         res.send(404)
     } else{
