@@ -1,5 +1,7 @@
 import {blogsRepository} from "../repositories/blogs-db-repository";
 import {ObjectId} from "mongodb";
+import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
+import {postsRepository} from "../repositories/posts-db-repository";
 
 type TypeNewBlog = {
     //_id: ObjectId
@@ -43,6 +45,22 @@ export const blogsService  = {
     // working now
     async getBloggersPost(id: string){
         return blogsRepository.getBloggersPost(id);
+    },
+
+    async createBloggerPost(title: string, shortDescription: string, content: string, blogId: string){
+        const blog = await blogsRepository.findBlogNameById(blogId);
+        if(!blog){
+            return null;
+        }
+        const newPost = {
+            title: title,
+            shortDescription: shortDescription,
+            content: content,
+            blogId: blogId,
+            blogName : blog,
+            createdAt: (new Date(Date.now()).toISOString())
+        }
+         return await postsRepository.createPost(newPost)
     }
 }
 

@@ -88,17 +88,21 @@ blogsRouter.post('/:blogId/posts',
     contentValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
-        const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
-        if(!blog){
-            res.send(404)
-        } else{
+        // const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
+        // if(!blog){
+        //     res.send(404)
+        // } else{
+        //
+        //     const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
+        //     if (newPost != null) {
+        //         const post = await postsQueryRepo.findPostById(newPost)
+        //         res.status(201).json(post)
+        //     }
+        // }
 
-            const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
-            if (newPost != null) {
-                const post = await postsQueryRepo.findPostById(newPost)
-                res.status(201).json(post)
-            }
-        }
+        const newPost = await blogsService.createBloggerPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
+        res.status(201).json(newPost)
+
     })
 
 blogsRouter.get('/:blogId/posts', async (req:Request, res:Response) =>{
