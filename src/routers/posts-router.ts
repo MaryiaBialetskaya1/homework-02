@@ -69,5 +69,5 @@ postsRouter.delete('/:id',
         } else {
             res.send(404);
         }
-    })
+})
 
