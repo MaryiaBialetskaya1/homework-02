@@ -101,7 +101,10 @@ blogsRouter.post('/:blogId/posts',
         // }
 
         const newPost = await blogsService.createBloggerPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
-        res.status(201).json(newPost)
+        if (newPost != null) {
+                    const post = await postsQueryRepo.findPostById(newPost)
+                    res.status(201).json(post)
+                 }
 
     })
 
