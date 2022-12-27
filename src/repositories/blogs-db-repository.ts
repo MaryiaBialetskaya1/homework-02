@@ -36,5 +36,10 @@ export const blogsRepository = {
     },
     async deleteAll(){
         return await blogCollection.deleteMany({});
+    },
+
+    // working now
+    async getBloggersPost(id: string) {
+
     }
 }

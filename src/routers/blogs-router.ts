@@ -31,8 +31,6 @@ blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
     }
 })
 
-
-
 blogsRouter.post('/',
     checkAuthorizationMiddleware,
     nameValidation,
@@ -89,17 +87,12 @@ blogsRouter.post('/:blogId/posts',
     contentValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
-        //const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        const postId = req.params.id;
         const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
-
         if(!blog){
             res.send(404)
         } else{
             const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId)
-
             res.status(201).json(newPost)
-
         }
     })
 

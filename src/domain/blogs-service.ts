@@ -40,5 +40,10 @@ export const blogsService  = {
     async deleteAll(){
         return blogsRepository.deleteAll();
     },
+
+    // working now
+    async getBloggersPost(id: string){
+        return blogsRepository.getBloggersPost(id);
+    }
 }
 

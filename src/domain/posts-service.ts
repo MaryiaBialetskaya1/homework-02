@@ -17,9 +17,9 @@ export const postService = {
         return postsRepository.findPosts();
     },
 
-    async findPostById(id: string): Promise<TypeNewPost | null>{
-        return postsRepository.findPostById(id);
-    },
+    // async findPostById(id: string): Promise<TypeNewPost | null>{
+    //     return postsRepository.findPostById(id);
+    // },
 
     async createPost(title: string, shortDescription: string, content: string, blogId:string): Promise<string | null>{
         const blog = await blogsRepository.findBlogNameById(blogId);
