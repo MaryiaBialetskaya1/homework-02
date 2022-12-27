@@ -14,6 +14,7 @@ import {inputValidationMiddleware} from "../middlewares/inputValidationMiddlewar
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 import {postService} from "../domain/posts-service";
+import {postsQueryRepo} from "../repositories/posts-queryRepo";
 
 export const blogsRouter = Router({})
 
@@ -91,8 +92,12 @@ blogsRouter.post('/:blogId/posts',
         if(!blog){
             res.send(404)
         } else{
-            const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId)
-            res.status(201).json(newPost)
+
+            const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
+            if (newPost != null) {
+                const post = await postsQueryRepo.findPostById(newPost)
+                res.status(201).json(post)
+            }
         }
     })
 
