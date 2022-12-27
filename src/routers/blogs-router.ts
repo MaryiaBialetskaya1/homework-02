@@ -33,8 +33,8 @@ blogsRouter.post('/:blogId/posts',
     youtubeUrlValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
-        const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        const newBlog = await blogsQueryRepo.findBlogById(newBlogId);
+        //const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        const newBlog = await blogsQueryRepo.findBlogById(req.params.blogId);
 
         if(!newBlog){
             res.send(404)
