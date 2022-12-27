@@ -26,39 +26,6 @@ blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
 })
 
 
-blogsRouter.post('/:blogId/posts',
-    checkAuthorizationMiddleware,
-    nameValidation,
-    descriptionValidation,
-    youtubeUrlValidation,
-    inputValidationMiddleware,
-    async (req: Request, res: Response) => {
-        //const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
-        const newBlog = await blogsQueryRepo.findBlogById(req.params.blogId);
-
-        if(!newBlog){
-            res.send(404)
-        } else{
-            const newPost = await postService.createPost(
-                req.body.title,
-                req.body.shortDescription,
-                req.body.content,
-                req.body.blogId)
-
-            res.status(200).json(newPost)
-
-        }
-    })
-
-// blogsRouter.get('/:blogId/posts', async (req:Request, res:Response) =>{
-//     const post = await postService.findBlogPost(req.params.blogId)
-//     if(!post){
-//         res.send(404)
-//     } else{
-//         res.status(200).json(post)
-//     }
-// })
-
 
 blogsRouter.post('/',
     checkAuthorizationMiddleware,
@@ -108,4 +75,39 @@ blogsRouter.delete('/',
             res.send(204)
         }
     })
+
+blogsRouter.post('/:blogId/posts',
+    checkAuthorizationMiddleware,
+    nameValidation,
+    descriptionValidation,
+    youtubeUrlValidation,
+    inputValidationMiddleware,
+    async (req: Request, res: Response) => {
+        //const newBlogId = await blogsService.createBlog(req.body.name, req.body.description, req.body.websiteUrl);
+        const newBlog = await blogsService.findBlogById(req.params.blogId);
+
+        if(!newBlog){
+            res.send(404)
+        } else{
+            const newPost = await postService.createPost(
+                req.body.title,
+                req.body.shortDescription,
+                req.body.content,
+                req.body.blogId)
+
+            res.status(200).json(newPost)
+
+        }
+    })
+
+// blogsRouter.get('/:blogId/posts', async (req:Request, res:Response) =>{
+//     const post = await postService.findBlogPost(req.params.blogId)
+//     if(!post){
+//         res.send(404)
+//     } else{
+//         res.status(200).json(post)
+//     }
+// })
+
+
 

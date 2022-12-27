@@ -14,9 +14,9 @@ export const blogsService  = {
         return blogsRepository.findBlogs();
     },
 
-    // async findBlogById(id: string): Promise<TypeNewBlog | null>{
-    //     return blogsRepository.findBlogById(id);
-    // },
+    async findBlogById(id: string): Promise<TypeNewBlog | null>{
+        return blogsRepository.findBlogById(id);
+    },
 
     async createBlog(name: string, description: string, websiteUrl: string): Promise<string>{
         const newBlog = {
