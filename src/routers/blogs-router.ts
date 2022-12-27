@@ -101,7 +101,7 @@ blogsRouter.post('/:blogId/posts',
                 req.body.content,
                 req.body.blogId)
 
-            res.status(200).json(newPost)
+            res.status(201).json(newPost)
 
         }
     })
