@@ -51,5 +51,4 @@ export const bodyBlogIdValidation = body('blogId')
     .notEmpty()
     .isString()
     .custom(isValidBlogId)
-// .isLength({min: 13, max:13})
 
