@@ -115,12 +115,20 @@ blogsRouter.post('/:blogId/posts',
 
 blogsRouter.get('/:blogId/posts',
     async (req:Request, res:Response) =>{
-        const blog = await blogsService.getBloggersPost(req.params.blogId)
-            if (!blog) {
-                res.send(404)
-            } else {
-                res.status(200).json(blog)
-            }
+        const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
+        if(!blog){
+            res.send(404)
+        } else {
+            res.status(200).json(blog);
+        }
+
+
+        // const blog = await blogsService.getBloggersPost(req.params.blogId)
+        //     if (!blog) {
+        //         res.send(404)
+        //     } else {
+        //         res.status(200).json(blog)
+        //     }
 })
 
 
