@@ -10,7 +10,7 @@ type TypeNewBlog = {
 
 export const blogsService  = {
     async findBlogs() : Promise<TypeNewBlog[]>{
-        return blogsRepository.findBlogs();
+        return await blogsRepository.findBlogs();
     },
 
     // async findBlogById(id: string): Promise<TypeNewBlog | null>{
@@ -28,20 +28,20 @@ export const blogsService  = {
     },
 
     async updateBlog(id: string, name: string, description: string, websiteUrl: string): Promise<boolean>{
-        return blogsRepository.updateBlog(id, name, description, websiteUrl);
+        return await blogsRepository.updateBlog(id, name, description, websiteUrl);
     },
 
     async deleteBlog(id: string): Promise<boolean>{
-        return blogsRepository.deleteBlog(id);
+        return await blogsRepository.deleteBlog(id);
     },
 
     async deleteAll(){
-        return blogsRepository.deleteAll();
+        return await blogsRepository.deleteAll();
     },
 
     // working now
     async getBloggersPost(id: string){
-        return blogsRepository.getBloggersPost(id);
+        return await blogsRepository.getBloggersPost(id);
     },
 
     async createBloggerPost(title: string, shortDescription: string, content: string, blogId: string){
