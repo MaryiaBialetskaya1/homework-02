@@ -1,4 +1,4 @@
-import {body, CustomValidator} from "express-validator";
+import {body, CustomValidator, param} from "express-validator";
 //import {blogsRepository} from "../repositories/blogs-repository";
 import {blogsRepository} from "../repositories/blogs-db-repository";
 
@@ -51,4 +51,11 @@ export const bodyBlogIdValidation = body('blogId')
     .notEmpty()
     .isString()
     .custom(isValidBlogId)
+
+export const isBlogIdFound = param('blogId')
+    .trim()
+    .notEmpty()
+    .isString()
+    .custom(isValidBlogId)
+
 

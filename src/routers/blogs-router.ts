@@ -5,7 +5,7 @@ import {blogsService} from "../domain/blogs-service";
 import { blogsType} from "../repositories/db"
 import {
     contentValidation,
-    descriptionValidation,
+    descriptionValidation, isBlogIdFound,
     nameValidation, shortDescriptionValidation,
     titleValidation,
     youtubeUrlValidation
@@ -100,6 +100,7 @@ blogsRouter.post('/:blogId/posts',
     titleValidation,
     shortDescriptionValidation,
     contentValidation,
+    isBlogIdFound,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
         // const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
@@ -121,7 +122,9 @@ blogsRouter.post('/:blogId/posts',
         }
     })
 
-blogsRouter.get('/:blogId/posts', async (req:Request, res:Response) =>{
+blogsRouter.get('/:blogId/posts',
+    isBlogIdFound,
+    async (req:Request, res:Response) =>{
     const post = await blogsService.getBloggersPost(req.params.blogId)
     if(!post){
         res.send(404)
