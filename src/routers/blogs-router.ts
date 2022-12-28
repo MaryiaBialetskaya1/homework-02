@@ -4,7 +4,6 @@ import {Request, Response, Router} from "express";
 import {blogsService} from "../domain/blogs-service";
 import { blogsType} from "../repositories/db"
 import {
-    bodyBlogIdValidation,
     contentValidation,
     descriptionValidation,
     nameValidation, shortDescriptionValidation,
@@ -101,7 +100,6 @@ blogsRouter.post('/:blogId/posts',
     titleValidation,
     shortDescriptionValidation,
     contentValidation,
-    //bodyBlogIdValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
         // const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
