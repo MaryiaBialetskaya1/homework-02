@@ -1,10 +1,7 @@
 import {blogsRepository} from "../repositories/blogs-db-repository";
-import {ObjectId} from "mongodb";
-import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 import {postsRepository} from "../repositories/posts-db-repository";
 
 type TypeNewBlog = {
-    //_id: ObjectId
     name: string
     description: string
     websiteUrl: string
