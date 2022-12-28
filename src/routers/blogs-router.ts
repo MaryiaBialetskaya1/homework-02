@@ -100,37 +100,27 @@ blogsRouter.post('/:blogId/posts',
     titleValidation,
     shortDescriptionValidation,
     contentValidation,
-    isBlogIdFound,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
-        // const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
-        // if(!blog){
-        //     res.send(404)
-        // } else{
-        //
-        //     const newPost = await postService.createPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
-        //     if (newPost != null) {
-        //         const post = await postsQueryRepo.findPostById(newPost)
-        //         res.status(201).json(post)
-        //     }
-        // }
-
-        const newPost = await blogsService.createBloggerPost(req.body.title, req.body.shortDescription, req.body.content, req.params.blogId);
-        if (newPost != null) {
-            const post = await postsQueryRepo.findPostById(newPost)
-            res.status(201).json(post)
+        const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
+        if(!blog){
+            res.send(404)
         }
+        const newPost = await blogsService.createBloggerPost(req.body.title, req.body.shortDescription, req.body.content, req.params.blogId);
+            if (newPost != null) {
+                const post = await postsQueryRepo.findPostById(newPost)
+                res.status(201).json(post)
+            }
     })
 
 blogsRouter.get('/:blogId/posts',
-    isBlogIdFound,
     async (req:Request, res:Response) =>{
-    const post = await blogsService.getBloggersPost(req.params.blogId)
-    if(!post){
-        res.send(404)
-    } else{
-        res.status(200).json(post)
-    }
+        const blog = await blogsService.getBloggersPost(req.params.blogId)
+            if (!blog) {
+                res.send(404)
+            } else {
+                res.status(200).json(blog)
+            }
 })
 
 
