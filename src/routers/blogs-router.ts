@@ -18,6 +18,21 @@ import {postsQueryRepo} from "../repositories/posts-queryRepo";
 
 export const blogsRouter = Router({})
 
+// export type PaginationType = {pageNumber: number; pageSize: number}
+// function pagination(
+//     pageNumber: string | undefined,
+//     pageSize: string | undefined
+// ): PaginationType{
+//     let result: PaginationType = {
+//         pageNumber: 1,
+//         pageSize: 10,
+//     };
+//
+//     if(pageNumber) result.pageNumber = +pageNumber;
+//     if(pageSize) result.pageNumber = +pageSize;
+//     return  result
+// }
+
 blogsRouter.get('/', async (req: Request, res: Response) => {
     const foundBlogs: blogsType[] = await blogsService.findBlogs()
     res.send(foundBlogs);
