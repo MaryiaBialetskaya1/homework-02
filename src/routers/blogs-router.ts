@@ -34,7 +34,12 @@ export const blogsRouter = Router({})
 // }
 
 blogsRouter.get('/', async (req: Request, res: Response) => {
-    const foundBlogs: blogsType[] = await blogsService.findBlogs()
+    const page = isNaN(Number(req.query.PageNumber))? 1: +req.query.PageNumber!
+    const pageSize = isNaN(Number(req.query.PageSize))? 1: +req.query.PageSize!
+    const name = req.query.SearchNameTerm?.toString()
+
+
+    const foundBlogs: blogsType[] = await blogsService.findBlogs(page, pageSize, name)
     res.send(foundBlogs);
 })
 
