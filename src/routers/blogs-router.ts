@@ -12,7 +12,7 @@ import {
 } from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
-import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
+import {blogsQueryRepo, requestQueryAll} from "../repositories/blogs-queryRepo";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
 
 export const blogsRouter = Router({})
@@ -32,14 +32,26 @@ export const blogsRouter = Router({})
 //     return  result
 // }
 
-blogsRouter.get('/', async (req: Request, res: Response) => {
-    const searchNameTerm = req.query.searchNameTerm?.toString()
-    const pageNumber = req.query.pageNumber ? Number(req.query.pageNumber) : 1
-    const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10
+blogsRouter.get('/', async (req: Request<[],[],[], requestQueryAll>, res: Response) => {
+
+    let searchNameTerm =  req.query.searchNameTerm ? req.query.searchNameTerm : 'null'
+    let pageNumber =  req.query.pageNumber ? req.query.pageNumber : '1'
+    let pageSize =  req.query.pageSize ? req.query.pageSize : '10'
+    let sortBy =  req.query.sortBy ? req.query.sortBy : 'createdAt'
+    let sortDirection =  req.query.sortDirection ? req.query.sortDirection : 'desc'
+
+    // const pageNumber = req.query.pageNumber ? Number(req.query.pageNumber) : 1
+    // const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10
+    // let sortBy =  req.query.sortBy ? req.query.sortBy : 'createdAt'
+    // let sortDirection =  req.query.sortDirection ? req.query.sortDirection : 'desc'
+    //const searchNameTerm = req.query.searchNameTerm?.toString()
 
 
 
-    const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize, searchNameTerm)
+
+    //const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize, searchNameTerm, sortBy, sortDirection)
+
+    const foundBlogs = await blogsQueryRepo.getAllBlogs(searchNameTerm, pageNumber, pageSize, sortBy, sortDirection)
     res.send(foundBlogs);
 })
 
