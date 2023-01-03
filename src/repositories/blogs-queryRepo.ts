@@ -25,29 +25,32 @@ export type requestQueryAll = {
     sortDirection:string
 };
 
-function sort(sortDir: string) {
-    return (sortDir === 'desc') ? -1 : 1;
+function sort(sortDirection: string) {
+    return (sortDirection === 'desc') ? -1 : 1;
 }
 
-function skipped(pageNum: string, pageSize: string): number {
-    return (+pageNum - 1) * (+pageSize);
+function skipped(pageNumber: string, pageSize: string): number {
+    return ((+pageNumber - 1) * (+pageSize));
 }
-
-
 
 export const blogsQueryRepo = {
 
-    async getAllBlogs(searchNameTerm: string, pageNumber: string, pageSize: string, sortBy: string, sortDir: string){
+    async getAllBlogs(searchNameTerm: string, pageNumber: string, pageSize: string, sortBy: string, sortDirection: string){
 
-        // const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-        // const countOfBloggers = await blogCollection.countDocuments(filter);
+        const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
+        const allCount = await blogCollection.countDocuments(filter);
+        //const allCount = await blogCollection.find({}).toArray();
 
 
-        const blogs = await blogCollection.find().skip(skipped(pageNumber, pageSize)).limit(+pageSize)
-            .sort(({sortBy: sort(sortDir)})).toArray();
+        const blogs = await blogCollection
+            .find(filter)
+            .skip(skipped(pageNumber, pageSize))
+            .limit(+pageSize)
+            .sort(({sortBy: sort(sortDirection)}))
+            .toArray();
 
-        const allCount = await blogCollection.find({}).toArray();
-        const pagesCount = Math.ceil(+allCount.length / +pageSize)
+
+        const pagesCount = Math.ceil(+allCount / +pageSize)
 
         const allMaps = blogs.map((field) => {
             return {
@@ -62,7 +65,7 @@ export const blogsQueryRepo = {
             pagesCount: pagesCount,
             page: +pageNumber,
             pageSize: +pageSize,
-            totalCount: allCount.length,
+            totalCount: allCount,
             items: allMaps
         }
 
