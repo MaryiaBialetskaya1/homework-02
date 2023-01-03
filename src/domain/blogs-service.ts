@@ -12,8 +12,8 @@ type TypeNewBlog = {
 }
 
 export const blogsService  = {
-    async findBlogs() : Promise<TypeNewBlog[]>{
-        return await blogsRepository.findBlogs();
+    async findBlogs( pageNumber: number, pageSize: number, searchNameTerm?: string,) : Promise<TypeNewBlog[]>{
+        return await blogsRepository.findBlogs(pageNumber, pageSize, searchNameTerm);
     },
 
     // async findBlogById(id: string): Promise<TypeNewBlog | null>{

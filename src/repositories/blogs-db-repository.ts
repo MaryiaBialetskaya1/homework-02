@@ -2,8 +2,25 @@ import {blogCollection, blogsType, postCollection, postsType} from "./db";
 import {ObjectId} from "mongodb";
 
 export const blogsRepository = {
-     async findBlogs() : Promise<blogsType[]>{
-         return blogCollection.find({}, ).toArray();
+     async findBlogs(pageNumber: number, pageSize: number, searchNameTerm?:string) : Promise<any>{
+         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
+         const countOfBloggers = await blogCollection.countDocuments(filter);
+         const allBloggers = await blogCollection
+             .find(filter)
+             .skip((pageNumber - 1) * pageSize)
+             .limit(pageSize)
+             .toArray();
+         return {
+             pagesCount: Math.ceil(countOfBloggers / pageSize),
+             page: pageNumber,
+             pageSize: pageSize,
+             totalCount: countOfBloggers,
+             items: [allBloggers]
+         }
+
+
+         //return blogCollection.find({}, ).toArray();
+         //: Promise<blogsType[]>
     },
     async findBlogById(id: string): Promise<blogsType | null>{
         const blog  = await blogCollection.findOne({_id: new ObjectId(id)})
