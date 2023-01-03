@@ -121,6 +121,7 @@ blogsRouter.get('/:blogId/posts',
         }
         const blogPosts = await blogsService.getBlogPosts(req.params.blogId)
         res.status(200).json(blogPosts)
+
 })
 
 
