@@ -1,5 +1,8 @@
 import {blogsRepository} from "../repositories/blogs-db-repository";
 import {postsRepository} from "../repositories/posts-db-repository";
+import {postsQueryRepo} from "../repositories/posts-queryRepo";
+import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
+import {ObjectId} from "mongodb";
 
 type TypeNewBlog = {
     name: string
@@ -40,8 +43,8 @@ export const blogsService  = {
     },
 
     // working now
-    async getBloggersPost(id: string){
-        return await blogsRepository.getBloggersPost(id);
+    async getBlogPosts(id: string){
+        return await blogsRepository.getBlogPosts(id)
     },
 
     async createBloggerPost(title: string, shortDescription: string, content: string, blogId: string){

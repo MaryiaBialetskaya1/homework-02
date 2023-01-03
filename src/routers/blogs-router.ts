@@ -119,9 +119,8 @@ blogsRouter.get('/:blogId/posts',
         if(!blog){
             res.send(404)
         }
-
-        const blogPost = await blogsService.getBloggersPost(req.params.blogId)
-        res.status(200).json(blogPost)
+        const blogPosts = await blogsService.getBlogPosts(req.params.blogId)
+        res.status(200).json(blogPosts)
 })
 
 
