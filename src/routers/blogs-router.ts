@@ -17,41 +17,26 @@ import {postsQueryRepo} from "../repositories/posts-queryRepo";
 
 export const blogsRouter = Router({})
 
-// export type PaginationType = {pageNumber: number; pageSize: number}
-// function pagination(
-//     pageNumber: string | undefined,
-//     pageSize: string | undefined
-// ): PaginationType{
-//     let result: PaginationType = {
-//         pageNumber: 1,
-//         pageSize: 10,
-//     };
-//
-//     if(pageNumber) result.pageNumber = +pageNumber;
-//     if(pageSize) result.pageNumber = +pageSize;
-//     return  result
-// }
-
 blogsRouter.get('/', async (req: Request<[],[],[], requestQueryAll>, res: Response) => {
 
-    let searchNameTerm =  req.query.searchNameTerm ? req.query.searchNameTerm : 'null'
-    let pageNumber =  req.query.pageNumber ? req.query.pageNumber : '1'
-    let pageSize =  req.query.pageSize ? req.query.pageSize : '10'
-    let sortBy =  req.query.sortBy ? req.query.sortBy : 'createdAt'
-    let sortDirection =  req.query.sortDirection ? req.query.sortDirection : 'desc'
-
-    // const pageNumber = req.query.pageNumber ? Number(req.query.pageNumber) : 1
-    // const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10
+    // let searchNameTerm =  req.query.searchNameTerm ? req.query.searchNameTerm : 'null'
+    // let pageNumber =  req.query.pageNumber ? req.query.pageNumber : '1'
+    // let pageSize =  req.query.pageSize ? req.query.pageSize : '10'
     // let sortBy =  req.query.sortBy ? req.query.sortBy : 'createdAt'
     // let sortDirection =  req.query.sortDirection ? req.query.sortDirection : 'desc'
-    //const searchNameTerm = req.query.searchNameTerm?.toString()
+
+    const pageNumber = req.query.pageNumber ? Number(req.query.pageNumber) : 1
+    const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10
+    let sortBy =  req.query.sortBy ? req.query.sortBy : 'createdAt'
+    let sortDirection =  req.query.sortDirection ? req.query.sortDirection : 'desc'
+    const searchNameTerm = req.query.searchNameTerm?.toString()
 
 
 
 
-    //const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize, searchNameTerm, sortBy, sortDirection)
+    const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm,)
 
-    const foundBlogs = await blogsQueryRepo.getAllBlogs(searchNameTerm, pageNumber, pageSize, sortBy, sortDirection)
+    //const foundBlogs = await blogsQueryRepo.getAllBlogs(searchNameTerm, pageNumber, pageSize, sortBy, sortDirection)
     res.send(foundBlogs);
 })
 

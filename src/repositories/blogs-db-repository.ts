@@ -1,17 +1,21 @@
 import {blogCollection, blogsType, postCollection, postsType} from "./db";
 import {ObjectId} from "mongodb";
 
+function sort(sortDirection: string) {
+    return (sortDirection === 'desc') ? -1 : 1;
+}
 export const blogsRepository = {
-     async findBlogs(pageNumber: number, pageSize: number, searchNameTerm?:string) : Promise<any>{
+     async findBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm:string,) : Promise<any>{
          const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
          const countOfBloggers = await blogCollection.countDocuments(filter);
          const allBloggers = await blogCollection
              .find(filter)
-             .skip((pageNumber - 1) * pageSize)
-             .limit(pageSize)
+             .skip((+pageNumber - 1) * (+pageSize))
+             .limit(+pageSize)
+             .sort({sortBy: sort(sortDirection)})
              .toArray();
          return {
-             pagesCount: Math.ceil(countOfBloggers / pageSize),
+             pagesCount: Math.ceil(countOfBloggers / +pageSize),
              page: pageNumber,
              pageSize: pageSize,
              totalCount: countOfBloggers,

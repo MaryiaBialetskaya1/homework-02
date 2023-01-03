@@ -46,7 +46,7 @@ export const blogsQueryRepo = {
             .find(filter)
             .skip(skipped(pageNumber, pageSize))
             .limit(+pageSize)
-            .sort(({sortBy: sort(sortDirection)}))
+            .sort({sortBy: sort(sortDirection)})
             .toArray();
 
 
