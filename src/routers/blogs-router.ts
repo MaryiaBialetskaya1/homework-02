@@ -34,7 +34,7 @@ blogsRouter.get('/', async (req: Request<[],[],[], requestQueryAll>, res: Respon
 
 
 
-    const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm,)
+    const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm)
 
     //const foundBlogs = await blogsQueryRepo.getAllBlogs(searchNameTerm, pageNumber, pageSize, sortBy, sortDirection)
     res.send(foundBlogs);

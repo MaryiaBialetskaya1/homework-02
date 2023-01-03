@@ -18,11 +18,11 @@ type TypeBlogDb = {
 };
 
 export type requestQueryAll = {
-    searchNameTerm: string,
-    pageNumber: string,
-    pageSize: string,
+    pageNumber: number,
+    pageSize: number,
     sortBy: string,
     sortDirection:string
+    searchNameTerm: string,
 };
 
 function sort(sortDirection: string) {
