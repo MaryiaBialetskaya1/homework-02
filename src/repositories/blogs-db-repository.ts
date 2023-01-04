@@ -19,7 +19,7 @@ export const blogsRepository = {
              page: pageNumber,
              pageSize: pageSize,
              totalCount: countOfBlogs,
-             items: [allBloggers]
+             items: allBloggers
          }
 
 
