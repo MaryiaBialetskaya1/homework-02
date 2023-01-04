@@ -14,12 +14,24 @@ export const blogsRepository = {
              .limit(pageSize)
              .sort({[sortBy]: sort(sortDirection)})
              .toArray();
+
+         const map = allBloggers.map((blog)=>{
+             return {
+                 id: blog._id,
+                 name: blog.name,
+                 description: blog.description,
+                 websiteUrl: blog.websiteUrl,
+                 createdAt: blog.createdAt
+             }
+         });
+
          return {
              pagesCount: Math.ceil(countOfBlogs / pageSize),
              page: pageNumber,
              pageSize: pageSize,
              totalCount: countOfBlogs,
-             items: allBloggers
+             items: map
+             //items: allBloggers
          }
 
 
