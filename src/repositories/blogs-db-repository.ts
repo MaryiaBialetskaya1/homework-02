@@ -25,7 +25,7 @@ export const blogsRepository = {
              }
          });
 
-         return {
+         const result =  {
              pagesCount: Math.ceil(countBlogs / pageSize),
              page: pageNumber,
              pageSize: pageSize,
@@ -33,7 +33,7 @@ export const blogsRepository = {
              items: map
              //items: allBloggers
          }
-
+         return result
 
          //return blogCollection.find({}, ).toArray();
          //: Promise<blogsType[]>

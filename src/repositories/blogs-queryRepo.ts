@@ -52,7 +52,7 @@ export const blogsQueryRepo = {
 
         const pagesCount = Math.ceil(+countOfBlogs / +pageSize)
 
-        const allMaps = blogs.map((field) => {
+        const map = blogs.map((field) => {
             return {
                 id: field._id,
                 name: field.name,
@@ -61,15 +61,15 @@ export const blogsQueryRepo = {
                 createdAt: field.createdAt
             }
         });
-        const resultObject = {
+        const result = {
             pagesCount: pagesCount,
             page: +pageNumber,
             pageSize: +pageSize,
             totalCount: countOfBlogs,
-            items: allMaps
+            items: map
         }
 
-        return resultObject
+        return result
     },
 
     async findBlogById(id: string): Promise<TypeViewBlog | null>{
