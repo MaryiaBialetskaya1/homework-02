@@ -17,12 +17,12 @@ type TypeBlogDb = {
     createdAt: string
 };
 
-export type requestQueryAll = {
+export type requestQueries = {
     pageNumber: number,
     pageSize: number,
     sortBy: string,
     sortDirection:string
-    searchNameTerm: string,
+    searchNameTerm: string
 };
 
 function sort(sortDirection: string) {
@@ -61,7 +61,7 @@ export const blogsQueryRepo = {
                 createdAt: field.createdAt
             }
         });
-        const result = {
+        return{
             pagesCount: pagesCount,
             page: +pageNumber,
             pageSize: +pageSize,
@@ -69,7 +69,6 @@ export const blogsQueryRepo = {
             items: map
         }
 
-        return result
     },
 
     async findBlogById(id: string): Promise<TypeViewBlog | null>{

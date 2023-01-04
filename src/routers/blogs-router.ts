@@ -12,12 +12,12 @@ import {
 } from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
-import {blogsQueryRepo, requestQueryAll} from "../repositories/blogs-queryRepo";
+import {blogsQueryRepo, requestQueries} from "../repositories/blogs-queryRepo";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
 
 export const blogsRouter = Router({})
 
-blogsRouter.get('/', async (req: Request<[],[],[], requestQueryAll>, res: Response) => {
+blogsRouter.get('/', async (req: Request<[],[],[], requestQueries>, res: Response) => {
 
     // let searchNameTerm =  req.query.searchNameTerm ? req.query.searchNameTerm : 'null'
     // let pageNumber =  req.query.pageNumber ? req.query.pageNumber : '1'
