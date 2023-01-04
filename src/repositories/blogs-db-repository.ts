@@ -7,15 +7,15 @@ function sort(sortDirection: string) {
 export const blogsRepository = {
      async findBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?:string) : Promise<any>{
          const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-         const countOfBlogs = await blogCollection.countDocuments(filter);
-         const allBloggers = await blogCollection
+         const countBlogs = await blogCollection.countDocuments(filter);
+         const allBlogs = await blogCollection
              .find(filter)
              .skip((pageNumber - 1) * (pageSize))
              .limit(pageSize)
              .sort({[sortBy]: sort(sortDirection)})
              .toArray();
 
-         const map = allBloggers.map((blog)=>{
+         const map = allBlogs.map((blog)=>{
              return {
                  id: blog._id,
                  name: blog.name,
@@ -26,10 +26,10 @@ export const blogsRepository = {
          });
 
          return {
-             pagesCount: Math.ceil(countOfBlogs / pageSize),
+             pagesCount: Math.ceil(countBlogs / pageSize),
              page: pageNumber,
              pageSize: pageSize,
-             totalCount: countOfBlogs,
+             totalCount: countBlogs,
              items: map
              //items: allBloggers
          }

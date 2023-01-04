@@ -38,7 +38,7 @@ export const blogsQueryRepo = {
     async getAllBlogs(searchNameTerm: string, pageNumber: string, pageSize: string, sortBy: string, sortDirection: string){
 
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-        const allCount = await blogCollection.countDocuments(filter);
+        const countOfBlogs = await blogCollection.countDocuments(filter);
         //const allCount = await blogCollection.find({}).toArray();
 
 
@@ -50,7 +50,7 @@ export const blogsQueryRepo = {
             .toArray();
 
 
-        const pagesCount = Math.ceil(+allCount / +pageSize)
+        const pagesCount = Math.ceil(+countOfBlogs / +pageSize)
 
         const allMaps = blogs.map((field) => {
             return {
@@ -65,7 +65,7 @@ export const blogsQueryRepo = {
             pagesCount: pagesCount,
             page: +pageNumber,
             pageSize: +pageSize,
-            totalCount: allCount,
+            totalCount: countOfBlogs,
             items: allMaps
         }
 
