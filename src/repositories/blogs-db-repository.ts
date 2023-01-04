@@ -25,7 +25,7 @@ export const blogsRepository = {
              }
          });
 
-         const result =  {
+         return {
              pagesCount: Math.ceil(countBlogs / pageSize),
              page: pageNumber,
              pageSize: pageSize,
@@ -33,7 +33,6 @@ export const blogsRepository = {
              items: map
              //items: allBloggers
          }
-         return result
 
          //return blogCollection.find({}, ).toArray();
          //: Promise<blogsType[]>
@@ -76,7 +75,7 @@ export const blogsRepository = {
         //return await postCollection.find({}).toArray();
 
        //const result = await blogCollection.find({_id: new ObjectId(id)}).toArray();
-       const posts = await postCollection.find({blogId: id}).toArray();
-       return posts
+       return await postCollection.find({blogId: id}).toArray();
+       //return posts
     }
 }
