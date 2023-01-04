@@ -12,7 +12,7 @@ export const blogsRepository = {
              .find(filter)
              .skip((pageNumber - 1) * (pageSize))
              .limit(pageSize)
-             .sort({sortBy: sort(sortDirection)})
+             .sort({[sortBy]: sort(sortDirection)})
              .toArray();
          return {
              pagesCount: Math.ceil(countOfBlogs / pageSize),
