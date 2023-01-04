@@ -6,7 +6,7 @@ function sort(sortDirection: string) {
 }
 export const blogsRepository = {
      async findBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?:string) : Promise<any>{
-         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
+         const filter = searchNameTerm ? {name: {$regex: new RegExp(searchNameTerm)}} : {};
          const countBlogs = await blogCollection.countDocuments(filter);
          const allBlogs = await blogCollection
              .find(filter)
