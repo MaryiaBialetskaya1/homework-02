@@ -14,10 +14,12 @@ import {inputValidationMiddleware} from "../middlewares/inputValidationMiddlewar
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {blogsQueryRepo, requestQueries} from "../repositories/blogs-queryRepo";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
+import {query} from "express-validator";
 
 export const blogsRouter = Router({})
 
-blogsRouter.get('/', async (req: Request<[],[],[], requestQueries>, res: Response) => {
+blogsRouter.get('/', query('PageNumber').isInt().optional({checkFalsy: true}),
+    query('PageSize').isInt().optional({checkFalsy: true}), async (req: Request<[],[],[], requestQueries>, res: Response) => {
 
     // let searchNameTerm =  req.query.searchNameTerm ? req.query.searchNameTerm : 'null'
     // let pageNumber =  req.query.pageNumber ? req.query.pageNumber : '1'
@@ -31,9 +33,9 @@ blogsRouter.get('/', async (req: Request<[],[],[], requestQueries>, res: Respons
     let sortDirection =  req.query.sortDirection ? req.query.sortDirection : 'desc'
     const searchNameTerm = req.query.searchNameTerm?.toString()
 
-    const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm)
+    //const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm)
 
-    //const foundBlogs = await blogsQueryRepo.getAllBlogs(searchNameTerm, pageNumber, pageSize, sortBy, sortDirection)
+    const foundBlogs = await blogsQueryRepo.getAllBlogs(pageNumber, pageSize, sortBy, sortDirection, searchNameTerm)
     res.send(foundBlogs);
 })
 

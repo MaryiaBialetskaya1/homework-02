@@ -29,43 +29,39 @@ function sort(sortDirection: string) {
     return (sortDirection === 'desc') ? -1 : 1;
 }
 
-function skipped(pageNumber: string, pageSize: string): number {
-    return ((+pageNumber - 1) * (+pageSize));
+function skipped(pageNumber: number, pageSize: number): number {
+    return ((pageNumber - 1) * (pageSize));
 }
 
 export const blogsQueryRepo = {
 
-    async getAllBlogs(searchNameTerm: string, pageNumber: string, pageSize: string, sortBy: string, sortDirection: string){
+    async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?: string){
 
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-        const countOfBlogs = await blogCollection.countDocuments(filter);
-        //const allCount = await blogCollection.find({}).toArray();
-
+        const countBlogs = await blogCollection.countDocuments(filter);
 
         const blogs = await blogCollection
             .find(filter)
             .skip(skipped(pageNumber, pageSize))
             .limit(+pageSize)
-            .sort({sortBy: sort(sortDirection)})
+            .sort({[sortBy]: sort(sortDirection)})
             .toArray();
 
-
-        const pagesCount = Math.ceil(+countOfBlogs / +pageSize)
-
-        const map = blogs.map((field) => {
+        const pagesCount = Math.ceil(countBlogs / pageSize)
+        const map = blogs.map((blog) => {
             return {
-                id: field._id,
-                name: field.name,
-                description: field.description,
-                websiteUrl: field.websiteUrl,
-                createdAt: field.createdAt
+                id: blog._id,
+                name: blog.name,
+                description: blog.description,
+                websiteUrl: blog.websiteUrl,
+                createdAt: blog.createdAt
             }
         });
         return{
             pagesCount: pagesCount,
             page: +pageNumber,
             pageSize: +pageSize,
-            totalCount: countOfBlogs,
+            totalCount: countBlogs,
             items: map
         }
 
