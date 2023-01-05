@@ -18,8 +18,7 @@ import {query} from "express-validator";
 
 export const blogsRouter = Router({})
 
-blogsRouter.get('/', query('PageNumber').isInt().optional({checkFalsy: true}),
-    query('PageSize').isInt().optional({checkFalsy: true}), async (req: Request<[],[],[], requestQueries>, res: Response) => {
+blogsRouter.get('/', async (req: Request<[],[],[], requestQueries>, res: Response) => {
 
     // let searchNameTerm =  req.query.searchNameTerm ? req.query.searchNameTerm : 'null'
     // let pageNumber =  req.query.pageNumber ? req.query.pageNumber : '1'
