@@ -37,6 +37,8 @@ export const blogsQueryRepo = {
 
     async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?: string){
 
+
+
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
         const countBlogs = await blogCollection.countDocuments(filter);
 
