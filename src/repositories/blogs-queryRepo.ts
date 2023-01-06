@@ -18,10 +18,10 @@ type TypeBlogDb = {
 };
 
 export type requestQueries = {
-    pageNumber: number,
-    pageSize: number,
-    sortBy: string,
-    sortDirection:string
+    pageNumber: number
+    pageSize: number
+    sortBy: string
+    sortDirection: string
     searchNameTerm: string
 };
 
@@ -34,18 +34,14 @@ function skipped(pageNumber: number, pageSize: number): number {
 }
 
 export const blogsQueryRepo = {
-
     async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?: string){
-
-
-
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
         const countBlogs = await blogCollection.countDocuments(filter);
 
         const blogs = await blogCollection
             .find(filter)
             .skip(skipped(pageNumber, pageSize))
-            .limit(+pageSize)
+            .limit(pageSize)
             .sort({[sortBy]: sort(sortDirection)})
             .toArray();
 
@@ -61,8 +57,8 @@ export const blogsQueryRepo = {
         });
         return{
             pagesCount: pagesCount,
-            page: +pageNumber,
-            pageSize: +pageSize,
+            page: pageNumber,
+            pageSize: pageSize,
             totalCount: countBlogs,
             items: map
         }
