@@ -13,6 +13,7 @@ import {inputValidationMiddleware} from "../middlewares/inputValidationMiddlewar
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {blogsQueryRepo, requestQueries} from "../repositories/blogs-queryRepo";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
+import {blogsType} from "../repositories/db";
 
 export const blogsRouter = Router({})
 
@@ -23,9 +24,9 @@ blogsRouter.get('/', async (req: Request<[],[],[], requestQueries>, res: Respons
     let sortDirection =  req.query.sortDirection ? req.query.sortDirection : 'desc'
     const searchNameTerm = req.query.searchNameTerm?.toString()
 
-    //const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm)
+    const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm) //blogsType[]
 
-    const foundBlogs = await blogsQueryRepo.getAllBlogs(pageNumber, pageSize, sortBy, sortDirection, searchNameTerm)
+    //const foundBlogs = await blogsQueryRepo.getAllBlogs(pageNumber, pageSize, sortBy, sortDirection, searchNameTerm)
     res.send(foundBlogs);
 })
 

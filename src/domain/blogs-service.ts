@@ -2,7 +2,6 @@ import {blogsRepository} from "../repositories/blogs-db-repository";
 import {postsRepository} from "../repositories/posts-db-repository";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
 import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
-import {ObjectId} from "mongodb";
 
 type TypeNewBlog = {
     name: string
@@ -10,6 +9,8 @@ type TypeNewBlog = {
     websiteUrl: string
     createdAt: string
 }
+
+
 
 export const blogsService  = {
     async findBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?: string) : Promise<TypeNewBlog[]>{
