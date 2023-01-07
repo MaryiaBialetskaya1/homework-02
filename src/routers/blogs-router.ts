@@ -19,11 +19,12 @@ import {queryValidationMiddleware} from "../middlewares/queryValidationMiddlewar
 export const blogsRouter = Router({})
 
 blogsRouter.get('/', async (req: Request, res: Response) => {   //<[],[],[], requestQueries>
-    //const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm) //blogsType[]
+    //const foundBlogs: blogsType[] = await blogsService.findBlogs(pageNumber, pageSize,  sortBy, sortDirection, searchNameTerm)
 
     const {pageNumber, pageSize, sortBy, sortDirection, searchNameTerm} = queryValidationMiddleware(req.query)
     const foundBlogs = await blogsQueryRepo.getAllBlogs(pageNumber, pageSize, sortBy, sortDirection, searchNameTerm)
-    res.send(foundBlogs);
+    res.status(200).send(foundBlogs);
+    //res.send(foundBlogs);
 })
 
 blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{

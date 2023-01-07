@@ -28,7 +28,6 @@ export type requestQueries = {
 function sort(sortDirection: string) {
     return (sortDirection === 'desc') ? -1 : 1;
 }
-
 function skipped(pageNumber: number, pageSize: number): number {
     return ((pageNumber - 1) * (pageSize));
 }
@@ -39,19 +38,12 @@ export const blogsQueryRepo = {
         const countBlogs = await blogCollection.countDocuments(filter);
         const pagesCount = Math.ceil(countBlogs / pageSize);
 
-        // let filter: {name?: any} = {}
-        // if(searchNameTerm){
-        //     filter.name = {$regex: searchNameTerm}
-        // }
-
         const blogs = await blogCollection
-            .find({name: {$regex: searchNameTerm}}) //filter
+            .find(filter) //filter
             .skip(skipped(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: sort(sortDirection)})
             .toArray();
-
-        //const totalCount = await blogCollection.countDocuments({name: ''})
 
         const map = blogs.map((blog) => {
             return {
@@ -63,7 +55,7 @@ export const blogsQueryRepo = {
             }
         });
         return{
-            pagesCount: Math.ceil(countBlogs / pageSize),
+            pagesCount: pagesCount,
             page: pageNumber,
             pageSize: pageSize,
             totalCount: countBlogs,
