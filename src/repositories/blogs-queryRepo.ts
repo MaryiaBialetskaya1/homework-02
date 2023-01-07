@@ -34,18 +34,20 @@ function skipped(pageNumber: number, pageSize: number): number {
 }
 
 export const blogsQueryRepo = {
-    async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?: string){
-        const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-        const countBlogs = await blogCollection.countDocuments(filter);
+    async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm?: string){
+        // const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
+        // const countBlogs = await blogCollection.countDocuments(filter);
+        //const pagesCount = Math.ceil(countBlogs / pageSize);
 
         const blogs = await blogCollection
-            .find(filter)
+            .find({name: {$regex: searchNameTerm}}) //filter
             .skip(skipped(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: sort(sortDirection)})
             .toArray();
 
-        const pagesCount = Math.ceil(countBlogs / pageSize)
+        const totalCount = await blogCollection.countDocuments({name: ''})
+
         const map = blogs.map((blog) => {
             return {
                 id: blog._id,
@@ -56,10 +58,10 @@ export const blogsQueryRepo = {
             }
         });
         return{
-            pagesCount: pagesCount,
+            pagesCount: Math.ceil(totalCount / pageSize),
             page: pageNumber,
             pageSize: pageSize,
-            totalCount: countBlogs,
+            totalCount: totalCount,
             items: map
         }
 
