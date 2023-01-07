@@ -24,7 +24,6 @@ blogsRouter.get('/', async (req: Request, res: Response) => {   //<[],[],[], req
     const {pageNumber, pageSize, sortBy, sortDirection, searchNameTerm} = queryValidationMiddleware(req.query)
     const foundBlogs = await blogsQueryRepo.getAllBlogs(pageNumber, pageSize, sortBy, sortDirection, searchNameTerm)
     res.status(200).send(foundBlogs);
-    //res.send(foundBlogs);
 })
 
 blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{

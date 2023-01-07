@@ -24,6 +24,14 @@ export type requestQueries = {
     sortDirection: string
     searchNameTerm: string
 };
+export type pagesBlogType = {
+    pagesCount: number,
+    page: number,
+    pageSize: number,
+    totalCount: number,
+    items: Array<TypeViewBlog>
+};
+
 
 function sort(sortDirection: string) {
     return (sortDirection === 'desc') ? -1 : 1;
@@ -39,12 +47,11 @@ export const blogsQueryRepo = {
         const pagesCount = Math.ceil(countBlogs / pageSize);
 
         const blogs = await blogCollection
-            .find(filter) //filter
+            .find(filter)
             .skip(skipped(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: sort(sortDirection)})
             .toArray();
-
         const map = blogs.map((blog) => {
             return {
                 id: blog._id,
@@ -61,7 +68,6 @@ export const blogsQueryRepo = {
             totalCount: countBlogs,
             items: map
         }
-
     },
 
     async findBlogById(id: string): Promise<TypeViewBlog | null>{
@@ -72,7 +78,6 @@ export const blogsQueryRepo = {
                 return this.blogWithReplaceId(foundBlog)
         }
     },
-
     blogWithReplaceId (object: TypeBlogDb): TypeViewBlog{
         return {
             id: object._id.toString(),
