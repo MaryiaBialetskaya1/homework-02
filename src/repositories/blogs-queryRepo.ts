@@ -1,5 +1,6 @@
 import {blogCollection} from "./db";
 import { ObjectId } from "mongodb";
+import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
 
 type TypeViewBlog = {
     id: string
@@ -24,33 +25,25 @@ export type requestQueries = {
     sortDirection: string
     searchNameTerm: string
 };
-export type pagesBlogType = {
-    pagesCount: number,
-    page: number,
-    pageSize: number,
-    totalCount: number,
-    items: Array<TypeViewBlog>
-};
 
-
-function sort(sortDirection: string) {
-    return (sortDirection === 'desc') ? -1 : 1;
-}
-function skipped(pageNumber: number, pageSize: number): number {
-    return ((pageNumber - 1) * (pageSize));
-}
+// function sort(sortDirection: string) {
+//     return (sortDirection === 'desc') ? -1 : 1;
+// }
+// function skipped(pageNumber: number, pageSize: number): number {
+//     return ((pageNumber - 1) * (pageSize));
+// }
 
 export const blogsQueryRepo = {
     async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm?: string){
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-        const countBlogs = await blogCollection.countDocuments(filter);
-        const pagesCount = Math.ceil(countBlogs / pageSize);
+        const totalCount = await blogCollection.countDocuments(filter);
+        //const pagesCount = Math.ceil(totalCount / pageSize);
 
         const blogs = await blogCollection
             .find(filter)
-            .skip(skipped(pageNumber, pageSize))
+            .skip(getSkippedNumber(pageNumber, pageSize))
             .limit(pageSize)
-            .sort({[sortBy]: sort(sortDirection)})
+            .sort({[sortBy]: getSort(sortDirection)})
             .toArray();
         const map = blogs.map((blog) => {
             return {
@@ -62,10 +55,10 @@ export const blogsQueryRepo = {
             }
         });
         return{
-            pagesCount: pagesCount,
+            pagesCount: getPagesCount(totalCount, pageSize),
             page: pageNumber,
             pageSize: pageSize,
-            totalCount: countBlogs,
+            totalCount: totalCount,
             items: map
         }
     },
