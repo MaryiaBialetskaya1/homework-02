@@ -26,18 +26,10 @@ export type requestQueries = {
     searchNameTerm: string
 };
 
-// function sort(sortDirection: string) {
-//     return (sortDirection === 'desc') ? -1 : 1;
-// }
-// function skipped(pageNumber: number, pageSize: number): number {
-//     return ((pageNumber - 1) * (pageSize));
-// }
-
 export const blogsQueryRepo = {
     async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm?: string){
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
         const totalCount = await blogCollection.countDocuments(filter);
-        //const pagesCount = Math.ceil(totalCount / pageSize);
 
         const blogs = await blogCollection
             .find(filter)
@@ -45,6 +37,7 @@ export const blogsQueryRepo = {
             .limit(pageSize)
             .sort({[sortBy]: getSort(sortDirection)})
             .toArray();
+
         const map = blogs.map((blog) => {
             return {
                 id: blog._id,
