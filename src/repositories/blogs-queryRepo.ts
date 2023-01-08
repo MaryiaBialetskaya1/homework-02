@@ -1,6 +1,7 @@
 import {blogCollection} from "./db";
 import { ObjectId } from "mongodb";
 import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
+import {blogsRepository} from "./blogs-db-repository";
 
 type TypeViewBlog = {
     id: string
@@ -55,6 +56,11 @@ export const blogsQueryRepo = {
             items: map
         }
     },
+
+    async getBlogPosts(id: string){
+        return await blogsRepository.getBlogPosts(id)
+    },
+
 
     async findBlogById(id: string): Promise<TypeViewBlog | null>{
         const foundBlog = await blogCollection.findOne({_id: new ObjectId(id)})
