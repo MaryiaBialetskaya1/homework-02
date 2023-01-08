@@ -1,5 +1,6 @@
 import {postCollection} from "./db";
 import { ObjectId } from "mongodb";
+import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
 
 type TypePostView = {
     id: string
@@ -22,6 +23,37 @@ type TypePostDb = {
 };
 
 export  const postsQueryRepo = {
+    async getAllPosts(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'){
+        const totalCount = await postCollection.countDocuments();
+
+        const posts = await postCollection
+            .find()
+            .skip(getSkippedNumber(pageNumber, pageSize))
+            .limit(pageSize)
+            .sort({[sortBy]: getSort(sortDirection)})
+            .toArray();
+
+        const map = posts.map((post) => {
+            return {
+                id: post._id,
+                title: post.title,
+                shortDescription: post.shortDescription,
+                content: post.content,
+                blogId: post.blogId,
+                blogName: post.blogName,
+                createdAt: post.createdAt
+            }
+        });
+        return{
+            pagesCount: getPagesCount(totalCount, pageSize),
+            page: pageNumber,
+            pageSize: pageSize,
+            totalCount: totalCount,
+            items: map
+        }
+    },
+
+
     async findPostById(id: string): Promise<TypePostView | null>{
         const foundPost = await postCollection.findOne({_id: new ObjectId(id)})
         if(!foundPost?._id){

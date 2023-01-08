@@ -12,12 +12,14 @@ import {
     titleValidation
 } from "../middlewares/validationMiddleware";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
+import {queryValidationMiddleware} from "../middlewares/queryValidationMiddleware";
 
 export const postsRouter = Router({})
 
 postsRouter.get('/', async (req: Request, res: Response) => {
-    const foundPosts: postsType[] = await postService.findPosts();
-    res.send(foundPosts);
+    const {pageNumber, pageSize, sortBy, sortDirection} = queryValidationMiddleware(req.query)
+    const foundPosts = await postsQueryRepo.getAllPosts(pageNumber, pageSize, sortBy, sortDirection); //postsType[]
+    res.status(200).send(foundPosts);
 })
 
 postsRouter.get('/:id', async (req: Request, res: Response)=>{

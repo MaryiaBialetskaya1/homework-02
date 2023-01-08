@@ -95,9 +95,9 @@ blogsRouter.post('/:blogId/posts',
         if(!blog){
             res.sendStatus(404)
         }
-        const newPost = await blogsService.createBloggerPost(req.body.title, req.body.shortDescription, req.body.content, req.params.blogId);
-            if (newPost != null) {
-                const post = await postsQueryRepo.findPostById(newPost)
+        const blogPosts = await blogsService.createBloggerPost(req.body.title, req.body.shortDescription, req.body.content, req.params.blogId);
+            if (blogPosts != null) {
+                const post = await postsQueryRepo.findPostById(blogPosts)
                 res.status(201).json(post)
             }
     })
@@ -108,11 +108,8 @@ blogsRouter.get('/:blogId/posts',
         if(!blog){
             res.sendStatus(404)
         }
-
         const {pageNumber, pageSize, sortBy, sortDirection} = queryValidationMiddleware(req.query)
         const blogPosts = await blogsQueryRepo.getBlogPosts(req.params.blogId, pageNumber, pageSize, sortBy, sortDirection)
-
-
         res.status(200).json(blogPosts)
 
 })
