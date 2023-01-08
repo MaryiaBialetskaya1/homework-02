@@ -1,4 +1,4 @@
-import {blogCollection} from "./db";
+import {blogCollection, postCollection} from "./db";
 import { ObjectId } from "mongodb";
 import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
 import {blogsRepository} from "./blogs-db-repository";
@@ -57,8 +57,32 @@ export const blogsQueryRepo = {
         }
     },
 
-    async getBlogPosts(id: string){
-        return await blogsRepository.getBlogPosts(id)
+    async getBlogPosts(id: string, pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'){
+        const totalCount = await blogCollection.countDocuments();
+        const blogPosts = await postCollection.find({blogId: id})
+            .skip(getSkippedNumber(pageNumber, pageSize))
+            .limit(pageSize)
+            .sort({[sortBy]: getSort(sortDirection)})
+            .toArray();
+
+        const map = blogPosts.map((blog) => {
+            return {
+                id: blog._id,
+                title: blog.title,
+                shortDescription: blog.shortDescription,
+                content: blog.content,
+                blogId: blog.blogId,
+                blogName: blog.blogName,
+                createdAt: blog.createdAt
+            }
+        });
+        return {
+            pagesCount: getPagesCount(totalCount, pageSize),
+            page: pageNumber,
+            pageSize: pageSize,
+            totalCount: totalCount,
+            items: map
+        }
     },
 
 

@@ -108,7 +108,11 @@ blogsRouter.get('/:blogId/posts',
         if(!blog){
             res.sendStatus(404)
         }
-        const blogPosts = await blogsQueryRepo.getBlogPosts(req.params.blogId)
+
+        const {pageNumber, pageSize, sortBy, sortDirection} = queryValidationMiddleware(req.query)
+        const blogPosts = await blogsQueryRepo.getBlogPosts(req.params.blogId, pageNumber, pageSize, sortBy, sortDirection)
+
+
         res.status(200).json(blogPosts)
 
 })
