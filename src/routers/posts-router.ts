@@ -25,7 +25,7 @@ postsRouter.get('/:id', async (req: Request, res: Response)=>{
     if(post){
         res.status(200).json(post);
     } else{
-        res.send(404);
+        res.sendStatus(404);
     }
 })
 
@@ -54,9 +54,9 @@ postsRouter.put('/:id',
     async (req: Request, res: Response) =>{
     const isUpdated: boolean = await postService.updatePost(req.params.id, req.body.title,  req.body.shortDescription, req.body.content, req.body.blogId);
     if(isUpdated){
-        res.send(204);
+        res.sendStatus(204);
     }else{
-        res.send(404);
+        res.sendStatus(404);
     }
 })
 
@@ -65,9 +65,9 @@ postsRouter.delete('/:id',
     async (req: Request, res: Response) => {
         const isDeleted = await postService.deletePost(req.params.id);
         if (isDeleted) {
-            res.send(204);
+            res.sendStatus(204);
         } else {
-            res.send(404);
+            res.sendStatus(404);
         }
 })
 postsRouter.delete('/',
@@ -75,9 +75,9 @@ postsRouter.delete('/',
     async (req: Request, res: Response) => {
         const isDeleted = await postService.deleteAll();
         if (isDeleted) {
-            res.send(204);
+            res.sendStatus(204);
         } else {
-            res.send(404);
+            res.sendStatus(404);
         }
     })
 
