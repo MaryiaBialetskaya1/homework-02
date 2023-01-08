@@ -29,7 +29,7 @@ blogsRouter.get('/', async (req: Request, res: Response) => {   //<[],[],[], req
 blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
     const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
     if(!blog){
-        res.send(404)
+        res.sendStatus(404)
     } else{
         res.status(200).json(blog)
     }
@@ -67,9 +67,9 @@ blogsRouter.delete('/:blogId',
     async (req: Request, res:Response) => {
         const isDeleted: boolean = await blogsService.deleteBlog(req.params.blogId)
         if(isDeleted){
-            res.send(204)
+            res.sendStatus(204)
         } else{
-            res.send(404)
+            res.sendStatus(404)
         }
     })
 
@@ -78,9 +78,9 @@ blogsRouter.delete('/',
     async (req: Request, res:Response) => {
         const isDeleted = await blogsService.deleteAll()
         if (!isDeleted) {
-            res.send(404)
+            res.sendStatus(404)
         } else {
-            res.send(204)
+            res.sendStatus(204)
         }
     })
 
@@ -93,7 +93,7 @@ blogsRouter.post('/:blogId/posts',
     async (req: Request, res: Response) => {
         const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
         if(!blog){
-            res.send(404)
+            res.sendStatus(404)
         }
         const newPost = await blogsService.createBloggerPost(req.body.title, req.body.shortDescription, req.body.content, req.params.blogId);
             if (newPost != null) {
@@ -106,7 +106,7 @@ blogsRouter.get('/:blogId/posts',
     async (req:Request, res:Response) =>{
         const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
         if(!blog){
-            res.send(404)
+            res.sendStatus(404)
         }
         const blogPosts = await blogsService.getBlogPosts(req.params.blogId)
         res.status(200).json(blogPosts)
