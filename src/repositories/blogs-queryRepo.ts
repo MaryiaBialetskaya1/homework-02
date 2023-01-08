@@ -58,7 +58,7 @@ export const blogsQueryRepo = {
     },
 
     async getBlogPosts(id: string, pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'){
-        const totalCount = await blogCollection.countDocuments();
+        const totalCount = await postCollection.countDocuments();
         const blogPosts = await postCollection.find({blogId: id})
             .skip(getSkippedNumber(pageNumber, pageSize))
             .limit(pageSize)
