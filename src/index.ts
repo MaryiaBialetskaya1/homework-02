@@ -2,7 +2,7 @@ import express, {Request, Response} from 'express'
 import bodyParser from 'body-parser'
 import {blogsRouter} from "./routers/blogs-router";
 import {postsRouter} from "./routers/posts-router";
-import {runDb} from "./repositories/db";
+import {blogCollection, postCollection, runDb} from "./repositories/db";
 import {posts} from "./repositories/posts-db-repository";
 import {blogs} from "./repositories/blogs-db-repository";
 
@@ -21,8 +21,8 @@ app.get('/', (req:Request, res:Response) => {
 })
 
 app.delete( '/testing/all-data', async (req: Request, res:Response) =>{
-    await blogs.splice(0, blogs.length);
-    await posts.splice(0, posts.length);
+    await blogCollection.deleteMany({});
+    await postCollection.deleteMany({});
     res.send(204)
 })
 
