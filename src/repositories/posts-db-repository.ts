@@ -4,17 +4,6 @@ import {ObjectId} from "mongodb";
 export let posts: postsType[] = [];
 
 export const postsRepository = {
-    // async findPosts() : Promise<postsType[]> {
-    //     return postCollection.find({}, ).toArray();
-    // },
-
-    // async findPostById(id: string): Promise<postsType | null> {
-    //     const post = await postCollection.findOne({_id: new ObjectId(id)})
-    //     if (!post){
-    //         return null;
-    //     }
-    //     return post;
-    // },
 
     async createPost(newPost: postsType): Promise<string>{
         const result = await postCollection.insertOne(newPost);
