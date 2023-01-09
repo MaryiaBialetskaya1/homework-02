@@ -37,13 +37,13 @@ export const blogsRepository = {
          // return blogCollection.find({}, ).toArray();
          // : Promise<blogsType[]>
     },
-    async findBlogById(id: string): Promise<blogsType | null>{
-        const blog  = await blogCollection.findOne({_id: new ObjectId(id)})
-        if(!blog){
-            return null;
-        }
-        return blog;
-    },
+    // async findBlogById(id: string): Promise<blogsType | null>{
+    //     const blog  = await blogCollection.findOne({_id: new ObjectId(id)})
+    //     if(!blog){
+    //         return null;
+    //     }
+    //     return blog;
+    // },
     async findBlogNameById(id: string): Promise<string | null>{
          const blog = await blogCollection.findOne({_id: new ObjectId(id)})
         if(!blog){
