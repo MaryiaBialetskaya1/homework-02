@@ -24,7 +24,7 @@ export const blogsQueryRepo = {
         const totalCount = await blogCollection.countDocuments(filter);
 
         const blogs = await blogCollection
-            .find()
+            .find(filter)
             .skip(getSkippedNumber(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: getSort(sortDirection)})
