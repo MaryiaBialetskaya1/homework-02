@@ -2,7 +2,7 @@ import {postCollection} from "./db";
 import { ObjectId } from "mongodb";
 import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
 
-type TypePostView = {
+type PostViewType = {
     id: string
     title: string
     shortDescription: string
@@ -12,7 +12,7 @@ type TypePostView = {
     createdAt: string
 };
 
-type TypePostDb = {
+type PostDbType = {
     _id: ObjectId
     title: string
     shortDescription: string
@@ -53,7 +53,7 @@ export  const postsQueryRepo = {
         }
     },
 
-    async findPostById(id: string): Promise<TypePostView | null>{
+    async findPostById(id: string): Promise<PostViewType | null>{
         const foundPost = await postCollection.findOne({_id: new ObjectId(id)})
         if(!foundPost?._id){
             return null
@@ -62,7 +62,7 @@ export  const postsQueryRepo = {
         }
     },
 
-    blogWithReplaceId (object: TypePostDb): TypePostView{
+    blogWithReplaceId (object: PostDbType): PostViewType{
         return {
             id: object._id.toString(),
             title: object.title,

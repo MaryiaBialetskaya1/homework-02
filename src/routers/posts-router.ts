@@ -1,5 +1,4 @@
 import {Request, Response, Router} from "express";
-import {postsType} from "../repositories/db";
 import {postService} from "../domain/posts-service";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
