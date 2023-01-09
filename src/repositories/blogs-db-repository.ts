@@ -5,45 +5,45 @@ function sort(sortDirection: string) {
     return (sortDirection === 'desc') ? -1 : 1;
 }
 export const blogsRepository = {
-     // async findBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?:string) : Promise<any>{
-     //     const filter = searchNameTerm ? {name: {$regex: new RegExp(searchNameTerm)}} : {};
-     //     const countBlogs = await blogCollection.countDocuments(filter);
-     //     const allBlogs = await blogCollection
-     //         .find(filter)
-     //         .skip((pageNumber - 1) * (pageSize))
-     //         .limit(pageSize)
-     //         .sort({[sortBy]: sort(sortDirection)})
-     //         .toArray();
-     //
-     //     const map = allBlogs.map((blog)=>{
-     //         return {
-     //             id: blog._id,
-     //             name: blog.name,
-     //             description: blog.description,
-     //             websiteUrl: blog.websiteUrl,
-     //             createdAt: blog.createdAt
-     //         }
-     //     });
-     //
-     //     return {
-     //         pagesCount: Math.ceil(countBlogs / pageSize),
-     //         page: pageNumber,
-     //         pageSize: pageSize,
-     //         totalCount: countBlogs,
-     //         items: map
-     //         //items: allBloggers
-     //     }
+     async findBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: string, searchNameTerm?:string) : Promise<any>{
+         const filter = searchNameTerm ? {name: {$regex: new RegExp(searchNameTerm)}} : {};
+         const countBlogs = await blogCollection.countDocuments(filter);
+         const allBlogs = await blogCollection
+             .find(filter)
+             .skip((pageNumber - 1) * (pageSize))
+             .limit(pageSize)
+             .sort({[sortBy]: sort(sortDirection)})
+             .toArray();
 
-         //return blogCollection.find({}, ).toArray();
-         //: Promise<blogsType[]>
-    // },
-    // async findBlogById(id: string): Promise<blogsType | null>{
-    //     const blog  = await blogCollection.findOne({_id: new ObjectId(id)})
-    //     if(!blog){
-    //         return null;
-    //     }
-    //     return blog;
-    // },
+         const map = allBlogs.map((blog)=>{
+             return {
+                 id: blog._id,
+                 name: blog.name,
+                 description: blog.description,
+                 websiteUrl: blog.websiteUrl,
+                 createdAt: blog.createdAt
+             }
+         });
+
+         return {
+             pagesCount: Math.ceil(countBlogs / pageSize),
+             page: pageNumber,
+             pageSize: pageSize,
+             totalCount: countBlogs,
+             items: map
+             //items: allBloggers
+         }
+
+         // return blogCollection.find({}, ).toArray();
+         // : Promise<blogsType[]>
+    },
+    async findBlogById(id: string): Promise<blogsType | null>{
+        const blog  = await blogCollection.findOne({_id: new ObjectId(id)})
+        if(!blog){
+            return null;
+        }
+        return blog;
+    },
     async findBlogNameById(id: string): Promise<string | null>{
          const blog = await blogCollection.findOne({_id: new ObjectId(id)})
         if(!blog){
