@@ -1,13 +1,6 @@
 import {blogsRepository} from "../repositories/blogs-db-repository";
 import {postsRepository} from "../repositories/posts-db-repository";
 
-type TypeNewBlog = {
-    name: string
-    description: string
-    websiteUrl: string
-    createdAt: string
-}
-
 export const blogsService  = {
     async createBlog(name: string, description: string, websiteUrl: string): Promise<string>{
         const newBlog = {

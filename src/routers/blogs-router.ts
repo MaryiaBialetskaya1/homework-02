@@ -11,7 +11,6 @@ import {inputValidationMiddleware} from "../middlewares/inputValidationMiddlewar
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
 import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
-import {blogsType} from "../repositories/db";
 import {queryValidationMiddleware} from "../middlewares/queryValidationMiddleware";
 
 export const blogsRouter = Router({})
