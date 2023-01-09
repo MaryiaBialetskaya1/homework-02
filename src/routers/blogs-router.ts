@@ -1,6 +1,4 @@
 import {Request, Response, Router} from "express";
-//import {blogsRepository} from "../repositories/blogs-repository"; - in memory
-//import {blogsRepository} from "../repositories/blogs-db-repository";
 import {blogsService} from "../domain/blogs-service";
 import {
     contentValidation,
@@ -11,7 +9,7 @@ import {
 } from "../middlewares/validationMiddleware";
 import {inputValidationMiddleware} from "../middlewares/inputValidationMiddleware";
 import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMiddleware";
-import {blogsQueryRepo, requestQueries} from "../repositories/blogs-queryRepo";
+import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
 import {blogsType} from "../repositories/db";
 import {queryValidationMiddleware} from "../middlewares/queryValidationMiddleware";

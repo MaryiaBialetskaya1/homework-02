@@ -69,13 +69,7 @@ export const blogsRepository = {
     async deleteAll(){
         return await blogCollection.deleteMany({});
     },
-
-    // working now
     async getBlogPosts(id: string): Promise<postsType[]> {
-        //return await postCollection.find({}).toArray();
-
-       //const result = await blogCollection.find({_id: new ObjectId(id)}).toArray();
        return await postCollection.find({blogId: id}).toArray();
-       //return posts
     }
 }
