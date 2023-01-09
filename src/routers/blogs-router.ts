@@ -12,13 +12,10 @@ import {checkAuthorizationMiddleware} from "../middlewares/checkAuthorizationMid
 import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 import {postsQueryRepo} from "../repositories/posts-queryRepo";
 import {queryValidationMiddleware} from "../middlewares/queryValidationMiddleware";
-import {query} from "express-validator";
 
 export const blogsRouter = Router({})
 
 blogsRouter.get('/',
-    query('PageNumber').isInt().optional({checkFalsy: true}),
-    query('PageSize').isInt().optional({checkFalsy: true}),
     async (req: Request, res: Response) => {
     const {pageNumber, pageSize, sortBy, sortDirection, searchNameTerm} = queryValidationMiddleware(req.query)
     const foundBlogs = await blogsQueryRepo.getAllBlogs(pageNumber, pageSize, sortBy, sortDirection, searchNameTerm)
