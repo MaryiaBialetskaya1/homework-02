@@ -53,7 +53,6 @@ export  const postsQueryRepo = {
         }
     },
 
-
     async findPostById(id: string): Promise<TypePostView | null>{
         const foundPost = await postCollection.findOne({_id: new ObjectId(id)})
         if(!foundPost?._id){
