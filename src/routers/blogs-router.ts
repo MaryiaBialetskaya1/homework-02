@@ -26,7 +26,8 @@ blogsRouter.get('/', async (req: Request, res: Response) => {   //<[],[],[], req
     res.status(200).send(foundBlogs);
 })
 
-blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
+blogsRouter.get('/:blogId',
+    async (req:Request, res:Response) =>{
     const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
     if(!blog){
         res.sendStatus(404)
@@ -34,6 +35,17 @@ blogsRouter.get('/:blogId', async (req:Request, res:Response) =>{
         res.status(200).json(blog)
     }
 })
+blogsRouter.get('/:blogId/posts',
+    async (req:Request, res:Response) =>{
+        const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
+        if(!blog){
+            res.sendStatus(404)
+        } else{
+            const {pageNumber, pageSize, sortBy, sortDirection} = queryValidationMiddleware(req.query)
+            const blogPosts = await blogsQueryRepo.getBlogPosts(req.params.blogId, pageNumber, pageSize, sortBy, sortDirection)
+            res.status(200).json(blogPosts)
+        }
+    })
 
 blogsRouter.post('/',
     checkAuthorizationMiddleware,
@@ -102,17 +114,6 @@ blogsRouter.post('/:blogId/posts',
             }
     })
 
-blogsRouter.get('/:blogId/posts',
-    async (req:Request, res:Response) =>{
-        const blog = await blogsQueryRepo.findBlogById(req.params.blogId)
-        if(!blog){
-            res.sendStatus(404)
-        }
-        const {pageNumber, pageSize, sortBy, sortDirection} = queryValidationMiddleware(req.query)
-        const blogPosts = await blogsQueryRepo.getBlogPosts(req.params.blogId, pageNumber, pageSize, sortBy, sortDirection)
-        res.status(200).json(blogPosts)
-
-})
 
 
 
