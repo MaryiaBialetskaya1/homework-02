@@ -15,7 +15,7 @@ export const postsRouter = Router({})
 
 postsRouter.get('/', async (req: Request, res: Response) => {
     const {pageNumber, pageSize, sortBy, sortDirection} = queryValidationMiddleware(req.query)
-    const foundPosts = await postsQueryRepo.getAllPosts(pageNumber, pageSize, sortBy, sortDirection); //postsType[]
+    const foundPosts = await postsQueryRepo.getAllPosts(pageNumber, pageSize, sortBy, sortDirection);
     res.status(200).json(foundPosts);
 })
 
