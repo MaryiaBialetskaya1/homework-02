@@ -25,13 +25,13 @@ export const blogsQueryRepo = {
 
 
         const blogs = await blogCollection
-            .find({name: filter })
+            .find(filter)
             .skip(getSkippedNumber(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: getSort(sortDirection)})
             .toArray();
 
-        const totalCount = await blogCollection.countDocuments({name: filter });
+        const totalCount = await blogCollection.countDocuments(filter);
         const map = blogs.map((blog) => {
             return {
                 id: blog._id,
