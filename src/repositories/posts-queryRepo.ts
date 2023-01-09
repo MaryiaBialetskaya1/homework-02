@@ -1,7 +1,6 @@
 import {postCollection} from "./db";
 import { ObjectId } from "mongodb";
 import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
-import {query} from "express-validator";
 
 type PostViewType = {
     id: string
@@ -25,8 +24,8 @@ type PostDbType = {
 
 export  const postsQueryRepo = {
     async getAllPosts(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'){
-        const totalCount = await postCollection.countDocuments({query});
-
+        //const totalCount = await postCollection.countDocuments({});
+        const totalCount = await postCollection.find({}).toArray();
         const posts = await postCollection
             .find()
             .skip(getSkippedNumber(pageNumber, pageSize))
@@ -46,7 +45,7 @@ export  const postsQueryRepo = {
             }
         });
         return{
-            pagesCount: getPagesCount(totalCount, pageSize),
+            pagesCount: getPagesCount(totalCount.length, pageSize),
             page: pageNumber,
             pageSize: pageSize,
             totalCount: totalCount,
