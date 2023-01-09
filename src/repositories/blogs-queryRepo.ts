@@ -19,19 +19,18 @@ type BlogDbType = {
 };
 
 export const blogsQueryRepo = {
-    async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm?: string){
-        const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-        //const reg = new RegExp('^' + searchNameTerm + '.*')
-
+    async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm: string){
+        //const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
+       // const reg = new RegExp('^' + searchNameTerm + '.*')
 
         const blogs = await blogCollection
-            .find(filter)
+            .find({name: new RegExp(searchNameTerm,'gi')})
             .skip(getSkippedNumber(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: getSort(sortDirection)})
             .toArray();
 
-        const totalCount = await blogCollection.countDocuments(filter);
+        const totalCount = await blogCollection.countDocuments({name: new RegExp(searchNameTerm,'gi')});
         const map = blogs.map((blog) => {
             return {
                 id: blog._id,
