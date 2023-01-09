@@ -49,22 +49,23 @@ export const blogsQueryRepo = {
     },
 
     async getBlogPosts(id: string, pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'){
-        const totalCount = await postCollection.countDocuments();//{blogId: id}
-        const blogPosts = await postCollection.find({blogId: id})
+        const totalCount = await postCollection.countDocuments({blogId: id});//
+        const blogPosts = await postCollection
+            .find({blogId: id})
             .skip(getSkippedNumber(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: getSort(sortDirection)})
             .toArray();
 
-        const map = blogPosts.map((blog) => {
+        const map = blogPosts.map((blogPosts) => {
             return {
-                id: blog._id,
-                title: blog.title,
-                shortDescription: blog.shortDescription,
-                content: blog.content,
-                blogId: blog.blogId,
-                blogName: blog.blogName,
-                createdAt: blog.createdAt
+                id: blogPosts._id,
+                title: blogPosts.title,
+                shortDescription: blogPosts.shortDescription,
+                content: blogPosts.content,
+                blogId: blogPosts.blogId,
+                blogName: blogPosts.blogName,
+                createdAt: blogPosts.createdAt
             }
         });
         return {

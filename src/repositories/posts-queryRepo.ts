@@ -1,6 +1,7 @@
 import {postCollection} from "./db";
 import { ObjectId } from "mongodb";
 import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
+import {query} from "express-validator";
 
 type PostViewType = {
     id: string
@@ -24,7 +25,7 @@ type PostDbType = {
 
 export  const postsQueryRepo = {
     async getAllPosts(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'){
-        const totalCount = await postCollection.countDocuments({pageNumber, pageSize, sortBy, sortDirection});
+        const totalCount = await postCollection.countDocuments({query});
 
         const posts = await postCollection
             .find()
