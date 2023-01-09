@@ -2,7 +2,7 @@ import {blogCollection, postCollection} from "./db";
 import { ObjectId } from "mongodb";
 import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
 
-type TypeViewBlog = {
+type ViewBlogType = {
     id: string
     name: string
     description: string
@@ -10,7 +10,7 @@ type TypeViewBlog = {
     createdAt: string
 };
 
-type TypeBlogDb = {
+type BlogDbType = {
     _id: ObjectId
     name: string
     description: string
@@ -77,7 +77,7 @@ export const blogsQueryRepo = {
     },
 
 
-    async findBlogById(id: string): Promise<TypeViewBlog | null>{
+    async findBlogById(id: string): Promise<ViewBlogType | null>{
         const foundBlog = await blogCollection.findOne({_id: new ObjectId(id)})
             if(!foundBlog?._id){
                 return null
@@ -85,7 +85,7 @@ export const blogsQueryRepo = {
                 return this.blogWithReplaceId(foundBlog)
         }
     },
-    blogWithReplaceId (object: TypeBlogDb): TypeViewBlog{
+    blogWithReplaceId (object: BlogDbType): ViewBlogType{
         return {
             id: object._id.toString(),
             name: object.name,
