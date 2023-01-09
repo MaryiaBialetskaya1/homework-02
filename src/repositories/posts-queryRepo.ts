@@ -25,9 +25,8 @@ type PostDbType = {
 export  const postsQueryRepo = {
     async getAllPosts(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'){
         const totalCount = await postCollection.countDocuments({});
-
         const posts = await postCollection
-            .find()
+            .find({})
             .skip(getSkippedNumber(pageNumber, pageSize))
             .limit(pageSize)
             .sort({[sortBy]: getSort(sortDirection)})
