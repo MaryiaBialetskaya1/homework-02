@@ -20,7 +20,7 @@ type BlogDbType = {
 
 export const blogsQueryRepo = {
     async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm?: string){
-        const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
+        const filter = searchNameTerm ? {name: {$regex: searchNameTerm, $options: 'i'}} : {};
 
 
         const blogs = await blogCollection
