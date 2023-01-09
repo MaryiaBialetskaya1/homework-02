@@ -1,7 +1,5 @@
 import {blogsRepository} from "../repositories/blogs-db-repository";
 import {postsRepository} from "../repositories/posts-db-repository";
-import {postsQueryRepo} from "../repositories/posts-queryRepo";
-import {blogsQueryRepo} from "../repositories/blogs-queryRepo";
 
 type TypeNewBlog = {
     name: string
@@ -31,11 +29,6 @@ export const blogsService  = {
 
     async deleteAll(){
         return await blogsRepository.deleteAll();
-    },
-
-    // working now
-    async getBlogPosts(id: string){
-        return await blogsRepository.getBlogPosts(id)
     },
 
     async createBloggerPost(title: string, shortDescription: string, content: string, blogId: string){

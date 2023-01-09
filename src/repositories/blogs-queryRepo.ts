@@ -1,7 +1,6 @@
 import {blogCollection, postCollection} from "./db";
 import { ObjectId } from "mongodb";
 import {getPagesCount, getSkippedNumber, getSort} from "../helpers/paginationFunctions";
-import {blogsRepository} from "./blogs-db-repository";
 
 type TypeViewBlog = {
     id: string
@@ -17,14 +16,6 @@ type TypeBlogDb = {
     description: string
     websiteUrl: string
     createdAt: string
-};
-
-export type requestQueries = {
-    pageNumber: number
-    pageSize: number
-    sortBy: string
-    sortDirection: string
-    searchNameTerm: string
 };
 
 export const blogsQueryRepo = {
