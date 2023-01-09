@@ -1,6 +1,8 @@
 import {blogCollection, blogsType} from "./db";
 import {ObjectId} from "mongodb";
 
+export let blogs: blogsType[] = [];
+
 export const blogsRepository = {
     async findBlogNameById(id: string): Promise<string | null>{
          const blog = await blogCollection.findOne({_id: new ObjectId(id)})

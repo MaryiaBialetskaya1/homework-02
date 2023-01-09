@@ -19,7 +19,7 @@ type BlogDbType = {
 };
 
 export const blogsQueryRepo = {
-    async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm: string){
+    async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm?: string){
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
        // const reg = new RegExp('^' + searchNameTerm + '.*')
 
