@@ -20,9 +20,9 @@ app.get('/', (req:Request, res:Response) => {
     res.send('Hello Homework-02 from IT-Incubator!!!!')
 })
 
-app.delete( '/testing/all-data', (req: Request, res:Response) =>{
-    blogs.splice(0, blogs.length);
-    posts.splice(0, posts.length);
+app.delete( '/testing/all-data', async (req: Request, res:Response) =>{
+    await blogs.splice(0, blogs.length);
+    await posts.splice(0, posts.length);
     res.send(204)
 })
 
