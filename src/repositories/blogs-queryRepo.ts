@@ -21,7 +21,7 @@ type BlogDbType = {
 export const blogsQueryRepo = {
     async getAllBlogs(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc', searchNameTerm?: string){
         const filter = searchNameTerm ? {name: {$regex: searchNameTerm}} : {};
-        const totalCount = await blogCollection.countDocuments(filter);
+
 
         const blogs = await blogCollection
             .find(filter)
@@ -30,6 +30,7 @@ export const blogsQueryRepo = {
             .sort({[sortBy]: getSort(sortDirection)})
             .toArray();
 
+        const totalCount = await blogCollection.countDocuments(filter);
         const map = blogs.map((blog) => {
             return {
                 id: blog._id,
