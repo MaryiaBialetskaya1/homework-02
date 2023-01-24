@@ -3,9 +3,6 @@ import bodyParser from 'body-parser'
 import {blogsRouter} from "./routers/blogs-router";
 import {postsRouter} from "./routers/posts-router";
 import {blogCollection, postCollection, runDb} from "./repositories/db";
-import {posts} from "./repositories/posts-db-repository";
-import {blogs} from "./repositories/blogs-db-repository";
-
 
 const app = express()
 const jsonBodyMiddleware = bodyParser.json()
