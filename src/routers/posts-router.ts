@@ -69,16 +69,17 @@ postsRouter.delete('/:id',
             res.sendStatus(404);
         }
 })
-// postsRouter.delete('/',
-//     checkAuthorizationMiddleware,
-//     async (req: Request, res: Response) => {
-//         const isDeleted = await postService.deleteAll();
-//         if (isDeleted) {
-//             res.sendStatus(204);
-//         } else {
-//             res.sendStatus(404);
-//         }
-//     })
+
+postsRouter.delete('/',
+    checkAuthorizationMiddleware,
+    async (req: Request, res: Response) => {
+        const isDeleted = await postService.deleteAll();
+        if (isDeleted) {
+            res.sendStatus(204);
+        } else {
+            res.sendStatus(404);
+        }
+    })
 
 
 
