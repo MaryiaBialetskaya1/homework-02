@@ -81,13 +81,21 @@ blogsRouter.delete('/:blogId',
         }
     })
 
-blogsRouter.delete('/',
-    checkAuthorizationMiddleware,
+// blogsRouter.delete('/',
+//     checkAuthorizationMiddleware,
+//     async (req: Request, res:Response) => {
+//         const isDeleted = await blogsService.deleteAll()
+//         if (!isDeleted) {
+//             res.sendStatus(404)
+//         } else {
+//             res.sendStatus(204)
+//         }
+//     })
+
+blogsRouter.delete('/testing/all-data',
     async (req: Request, res:Response) => {
         const isDeleted = await blogsService.deleteAll()
         if (!isDeleted) {
-            res.sendStatus(404)
-        } else {
             res.sendStatus(204)
         }
     })
