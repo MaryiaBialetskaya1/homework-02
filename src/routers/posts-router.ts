@@ -82,10 +82,8 @@ postsRouter.delete('/:id',
 
 postsRouter.delete('/testing/all-data',
     async (req: Request, res: Response) => {
-        const isDeleted = await postService.deleteAll();
-        if (isDeleted) {
-            res.sendStatus(204);
-        }
+        return await postService.deleteAll();
+        res.sendStatus(204);
     })
 
 

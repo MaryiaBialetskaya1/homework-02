@@ -94,10 +94,8 @@ blogsRouter.delete('/:blogId',
 
 blogsRouter.delete('/testing/all-data',
     async (req: Request, res:Response) => {
-        const isDeleted = await blogsService.deleteAll()
-        if (!isDeleted) {
-            res.sendStatus(204)
-        }
+        return await blogsService.deleteAll()
+        res.sendStatus(204)
     })
 
 blogsRouter.post('/:blogId/posts',
