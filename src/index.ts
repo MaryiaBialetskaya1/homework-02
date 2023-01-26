@@ -17,11 +17,11 @@ app.get('/', (req:Request, res:Response) => {
     res.send('Hello from IT-Incubator!!!!')
 })
 
-// app.delete( '/testing/all-data', async (req: Request, res:Response) =>{
-//     await blogCollection.deleteMany({});
-//     await postCollection.deleteMany({});
-//     res.send(204)
-// })
+app.delete( '/testing/all-data', async (req: Request, res:Response) =>{
+    await blogCollection.deleteMany({});
+    await postCollection.deleteMany({});
+    res.send(204)
+})
 
 
 const startApp = async () =>{

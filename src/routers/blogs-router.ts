@@ -92,12 +92,6 @@ blogsRouter.delete('/:blogId',
 //         }
 //     })
 
-blogsRouter.delete('/testing/all-data',
-    async (req: Request, res:Response) => {
-        return await blogsService.deleteAll()
-        res.sendStatus(204)
-    })
-
 blogsRouter.post('/:blogId/posts',
     checkAuthorizationMiddleware,
     titleValidation,

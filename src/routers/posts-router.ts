@@ -80,10 +80,6 @@ postsRouter.delete('/:id',
 //         }
 //     })
 
-postsRouter.delete('/testing/all-data',
-    async (req: Request, res: Response) => {
-        return await postService.deleteAll();
-        res.sendStatus(204);
-    })
+
 
 
